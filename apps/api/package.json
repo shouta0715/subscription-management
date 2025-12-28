@@ -2,7 +2,7 @@
   "name": "api",
   "type": "module",
   "scripts": {
-    "dev": "wrangler dev --port 8000",
+    "dev": "pnpm db:start && wrangler dev --port 8000",
     "deploy": "wrangler deploy --minify",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings",
     "lint:eslint": "eslint . --max-warnings=0",
@@ -10,7 +10,9 @@
     "lint:format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "db:start": "turso dev --db-file ./database/local.db &",
+    "db:stop": "pkill -f 'turso dev'"
   },
   "dependencies": {
     "@libsql/client": "^0.15.15",
@@ -22,6 +24,7 @@
     "@package/eslint-config": "workspace:*",
     "@package/prettier-config": "workspace:*",
     "@package/typescript-config": "workspace:*",
+    "dotenv": "^17.2.3",
     "drizzle-kit": "^0.31.8",
     "eslint": "catalog:",
     "typescript-eslint": "catalog:",
