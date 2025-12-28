@@ -1,6 +1,6 @@
-import { Hono } from "hono";
+import { factory } from "./helpers/factory";
 
-const app = new Hono();
+const app = factory.createApp();
 
 app.get("/", (c) => c.text("Hello Hono!"));
 
