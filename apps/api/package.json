@@ -12,9 +12,12 @@
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
     "db:start": "turso dev --db-file ./database/local.db &",
-    "db:stop": "pkill -f 'turso dev'"
+    "db:stop": "pkill -f 'turso dev'",
+    "auth:generate": "pnpx @better-auth/cli@latest generate --config ./better-auth.config.ts --output ./src/db/schemas/users.ts"
   },
   "dependencies": {
+    "@better-auth/expo": "^1.4.9",
+    "@better-auth/passkey": "^1.4.9",
     "@libsql/client": "^0.15.15",
     "better-auth": "^1.4.9",
     "drizzle-orm": "^0.45.1",
