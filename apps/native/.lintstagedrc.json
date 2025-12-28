@@ -1,0 +1,6 @@
+{
+  "*.{js,jsx,ts,tsx}": [
+    "pnpm eslint --fix --no-warn-ignored",
+    "pnpm prettier --write --ignore-unknown"
+  ]
+}

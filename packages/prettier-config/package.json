@@ -1,0 +1,19 @@
+{
+  "name": "@package/prettier-config",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "exports": {
+    "./base": "./base.mjs",
+    "./tailwind": "./tailwind.mjs"
+  },
+  "peerDependencies": {
+    "prettier": "*",
+    "prettier-plugin-tailwindcss": "*"
+  },
+  "peerDependenciesMeta": {
+    "prettier-plugin-tailwindcss": {
+      "optional": true
+    }
+  }
+}

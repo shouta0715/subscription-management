@@ -1,0 +1,26 @@
+{
+  "name": "turborepo-template",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint:eslint lint:ts lint:format",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "prettier": "catalog:",
+    "turbo": "^2.7.2",
+    "typescript": "catalog:"
+  },
+  "packageManager": "pnpm@10.26.2",
+  "engines": {
+    "node": ">=24"
+  },
+  "pnpm": {
+    "overrides": {
+      "lightningcss": "1.30.1"
+    }
+  }
+}

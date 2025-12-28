@@ -1,0 +1,41 @@
+packages:
+  - apps/*
+  - packages/*
+
+minimumReleaseAge: 720
+
+onlyBuiltDependencies:
+  - "@swc/core"
+  - "@tailwindcss/oxide"
+  - esbuild
+  - sharp
+  - workerd
+
+catalog:
+  valibot: ^1.2.0
+
+  # ===========================================
+  # ESLint関連パッケージ
+  # ===========================================
+  eslint: ^9.33.0
+  typescript-eslint: ^8.47.0
+  "@typescript-eslint/parser": ^8.47.0
+
+  # ===========================================
+  # Prettier関連パッケージ
+  # ===========================================
+  prettier: ^3.7.3
+  prettier-plugin-tailwindcss: ^0.6.14
+
+  # ===========================================
+  # TypeScript関連パッケージ
+  # ===========================================
+  typescript: ~5.9.2
+  "@types/node": ^24.2.1
+
+  # ===========================================
+  # Tailwind関連パッケージ
+  # ===========================================
+  tailwindcss: ^4.1.18
+  tailwind-merge: ^3.4.0
+  clsx: ^2.1.1
