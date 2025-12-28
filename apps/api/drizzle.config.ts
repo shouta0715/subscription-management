@@ -1,20 +1,17 @@
 import { config } from "dotenv";
 import { defineConfig } from "drizzle-kit";
+import { parseEnv } from "@/helpers/env";
 
 void config({ path: ".dev.vars" });
 
-const { DB_URL, DB_AUTH_TOKEN } = process.env;
-
-if (!DB_URL || !DB_AUTH_TOKEN) {
-  throw new Error("Invalid environment variables");
-}
+const env = parseEnv(process.env);
 
 export default defineConfig({
   out: "./src/drizzle",
   schema: "./src/db/schemas",
   dialect: "turso",
   dbCredentials: {
-    url: DB_URL,
-    authToken: DB_AUTH_TOKEN,
+    url: env.DB_URL,
+    authToken: env.DB_AUTH_TOKEN,
   },
 });
