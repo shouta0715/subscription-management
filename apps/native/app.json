@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "native",
-    "slug": "native",
+    "name": "sub-mana",
+    "slug": "sub-mana",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "native",
+    "scheme": "sub-mana",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
