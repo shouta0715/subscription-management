@@ -4,8 +4,9 @@
   "type": "module",
   "private": true,
   "exports": {
+    ".": "./src/index.ts",
     "./cards": "./src/cards/index.ts",
-    ".": "./src/index.ts"
+    "./subscriptions": "./src/subscriptions/index.ts"
   },
   "scripts": {
     "lint:eslint": "eslint . --max-warnings=0",
