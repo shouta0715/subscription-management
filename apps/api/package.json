@@ -22,7 +22,8 @@
     "better-auth": "^1.4.9",
     "drizzle-orm": "^0.45.1",
     "hono": "^4.9.0",
-    "valibot": "catalog:"
+    "valibot": "catalog:",
+    "@package/model": "workspace:*"
   },
   "devDependencies": {
     "@package/eslint-config": "workspace:*",
