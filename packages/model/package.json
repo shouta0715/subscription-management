@@ -1,0 +1,28 @@
+{
+  "name": "@package/model",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "exports": {
+    "./cards": "./src/cards/index.ts",
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint:eslint": "eslint . --max-warnings=0",
+    "lint:ts": "tsc --noEmit",
+    "lint:format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "peerDependencies": {
+    "tailwind-merge": "catalog:",
+    "clsx": "catalog:",
+    "valibot": "catalog:"
+  },
+  "devDependencies": {
+    "@package/eslint-config": "workspace:*",
+    "@package/prettier-config": "workspace:*",
+    "@package/typescript-config": "workspace:*",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "typescript": "catalog:"
+  }
+}
