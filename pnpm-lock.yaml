@@ -6,9 +6,33 @@ settings:
 
 catalogs:
   default:
+    '@types/node':
+      specifier: ^24.2.1
+      version: 24.10.1
+    '@typescript-eslint/parser':
+      specifier: ^8.47.0
+      version: 8.48.1
+    clsx:
+      specifier: ^2.1.1
+      version: 2.1.1
     eslint:
       specifier: ^9.33.0
       version: 9.39.1
+    prettier:
+      specifier: ^3.7.3
+      version: 3.7.4
+    prettier-plugin-tailwindcss:
+      specifier: ^0.6.14
+      version: 0.6.14
+    tailwind-merge:
+      specifier: ^3.4.0
+      version: 3.4.0
+    tailwindcss:
+      specifier: ^4.1.18
+      version: 4.1.18
+    typescript:
+      specifier: ~5.9.2
+      version: 5.9.3
     typescript-eslint:
       specifier: ^8.47.0
       version: 8.48.1
@@ -50,6 +74,9 @@ importers:
       '@libsql/client':
         specifier: ^0.15.15
         version: 0.15.15
+      '@package/model':
+        specifier: workspace:*
+        version: link:../../packages/model
       better-auth:
         specifier: ^1.4.9
         version: 1.4.9(drizzle-kit@0.31.8)(drizzle-orm@0.45.1(@libsql/client@0.15.15)(kysely@0.28.9))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -296,6 +323,37 @@ importers:
       tailwind-merge:
         specifier: 'catalog:'
         version: 3.4.0
+    devDependencies:
+      '@package/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@package/prettier-config':
+        specifier: workspace:*
+        version: link:../prettier-config
+      '@package/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      eslint:
+        specifier: 'catalog:'
+        version: 9.39.1(jiti@2.6.1)
+      prettier:
+        specifier: 'catalog:'
+        version: 3.7.4
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+
+  packages/model:
+    dependencies:
+      clsx:
+        specifier: 'catalog:'
+        version: 2.1.1
+      tailwind-merge:
+        specifier: 'catalog:'
+        version: 3.4.0
+      valibot:
+        specifier: 'catalog:'
+        version: 1.2.0(typescript@5.9.3)
     devDependencies:
       '@package/eslint-config':
         specifier: workspace:*
