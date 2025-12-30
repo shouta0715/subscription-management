@@ -7,7 +7,8 @@ import {
   index,
   check,
 } from "drizzle-orm/sqlite-core";
-import { subscription } from "./subscriptions";
+
+import { paymentMethod } from "./payment-methods";
 import { user } from "./users";
 
 export const card = sqliteTable(
@@ -48,5 +49,5 @@ export const cardRelations = relations(card, ({ one, many }) => ({
     fields: [card.userId],
     references: [user.id],
   }),
-  subscriptions: many(subscription),
+  paymentMethods: many(paymentMethod),
 }));

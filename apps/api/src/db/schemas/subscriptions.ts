@@ -11,7 +11,7 @@ import {
   index,
   check,
 } from "drizzle-orm/sqlite-core";
-import { card } from "./cards";
+import { paymentMethod } from "./payment-methods";
 import { user } from "./users";
 
 export const subscription = sqliteTable(
@@ -21,9 +21,9 @@ export const subscription = sqliteTable(
     userId: text("user_id")
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
-    cardId: text("card_id")
+    paymentMethodId: text("payment_method_id")
       .notNull()
-      .references(() => card.id, { onDelete: "restrict" }),
+      .references(() => paymentMethod.id, { onDelete: "cascade" }),
     name: text("name").notNull(),
     amountMinor: integer("amount_minor").notNull(),
     currency: text("currency", { enum: subscriptionCurrencies }).notNull(),
@@ -44,10 +44,10 @@ export const subscription = sqliteTable(
   },
   (table) => [
     index("subscription_userId_idx").on(table.userId),
-    index("subscription_cardId_idx").on(table.cardId),
+    index("subscription_paymentMethodId_idx").on(table.paymentMethodId),
     index("subscription_status_idx").on(table.status),
     index("subscription_card_billing_idx").on(
-      table.cardId,
+      table.paymentMethodId,
       table.billingStartDate,
       table.billingEndDate,
     ),
@@ -60,8 +60,8 @@ export const subscriptionRelations = relations(subscription, ({ one }) => ({
     fields: [subscription.userId],
     references: [user.id],
   }),
-  card: one(card, {
-    fields: [subscription.cardId],
-    references: [card.id],
+  paymentMethod: one(paymentMethod, {
+    fields: [subscription.paymentMethodId],
+    references: [paymentMethod.id],
   }),
 }));
