@@ -7,7 +7,8 @@
     ".": "./src/index.ts",
     "./cards": "./src/cards/index.ts",
     "./payment-methods": "./src/payment-methods/index.ts",
-    "./subscriptions": "./src/subscriptions/index.ts"
+    "./subscriptions": "./src/subscriptions/index.ts",
+    "./common": "./src/common/index.ts"
   },
   "scripts": {
     "lint:eslint": "eslint . --max-warnings=0",

@@ -317,12 +317,12 @@ importers:
 
   packages/lib:
     dependencies:
-      clsx:
+      '@package/model':
+        specifier: workspace:*
+        version: link:../model
+      valibot:
         specifier: 'catalog:'
-        version: 2.1.1
-      tailwind-merge:
-        specifier: 'catalog:'
-        version: 3.4.0
+        version: 1.2.0(typescript@5.9.3)
     devDependencies:
       '@package/eslint-config':
         specifier: workspace:*
