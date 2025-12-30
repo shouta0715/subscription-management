@@ -6,6 +6,7 @@
   "exports": {
     ".": "./src/index.ts",
     "./cards": "./src/cards/index.ts",
+    "./payment-methods": "./src/payment-methods/index.ts",
     "./subscriptions": "./src/subscriptions/index.ts"
   },
   "scripts": {
