@@ -12,8 +12,7 @@
     "lint:format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "peerDependencies": {
-    "tailwind-merge": "catalog:",
-    "clsx": "catalog:"
+    "valibot": "catalog:"
   },
   "devDependencies": {
     "@package/eslint-config": "workspace:*",
