@@ -3,9 +3,7 @@
   "name": "api",
   "main": "src/index.ts",
   "compatibility_date": "2025-05-05",
-  // "compatibility_flags": [
-  //   "nodejs_compat"
-  // ],
+  "compatibility_flags": ["nodejs_compat"],
   "vars": {
     "DB_URL": "<DB_URL>",
     "DB_AUTH_TOKEN": "<DB_AUTH_TOKEN>",
