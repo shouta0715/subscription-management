@@ -1,6 +1,5 @@
 import { relations, sql } from "drizzle-orm";
 import { sqliteTable, text, integer, index } from "drizzle-orm/sqlite-core";
-
 import { card } from "./cards";
 import { paymentMethod } from "./payment-methods";
 import { subscription } from "./subscriptions";
@@ -20,6 +19,7 @@ export const user = sqliteTable("user", {
     .default(sql`(cast(unixepoch('subsecond') * 1000 as integer))`)
     .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
+  isAnonymous: integer("is_anonymous", { mode: "boolean" }).default(false),
 });
 
 export const session = sqliteTable(

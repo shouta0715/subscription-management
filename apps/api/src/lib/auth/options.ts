@@ -1,6 +1,7 @@
 import { expo } from "@better-auth/expo";
 import { passkey } from "@better-auth/passkey";
 import { BetterAuthOptions } from "better-auth";
+import { anonymous } from "better-auth/plugins";
 import { AppEnv } from "@/types/app-env";
 
 const socialProvidersOptions = (
@@ -43,5 +44,5 @@ export const betterAuthOptions = (
   appName: "Sub Mana",
   socialProviders: socialProvidersOptions(env),
   trustedOrigins: trustedOrigins(env),
-  plugins: [passkey(), expo()],
+  plugins: [passkey(), expo(), anonymous()],
 });
