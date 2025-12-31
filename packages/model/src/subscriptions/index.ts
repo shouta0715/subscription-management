@@ -1,4 +1,5 @@
 export * from "./billing-unit";
+export * from "./check";
 export * from "./currency";
 export * from "./id";
 export * from "./schema";

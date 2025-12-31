@@ -1,10 +1,10 @@
 import * as v from "valibot";
 
+import { cardIdSchema } from "../cards/id";
 import { timestampSchema } from "../common";
 import { userIdSchema } from "../users/id";
 import { paymentMethodIdSchema } from "./id";
 import { PaymentMethodType } from "./type";
-import { cardIdSchema } from "@/cards";
 
 const commonPaymentMethodSchema = v.object({
   id: paymentMethodIdSchema,

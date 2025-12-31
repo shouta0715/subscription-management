@@ -1,4 +1,4 @@
-import { Yyyymmdd } from "@/common";
+import { Yyyymmdd } from "../common";
 
 export const subscriptionBillingStartDateIsBeforeOrEqualToBillingEndDate = (
   billingStartDate: Yyyymmdd,

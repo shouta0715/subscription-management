@@ -6,9 +6,11 @@
   "exports": {
     ".": "./src/index.ts",
     "./cards": "./src/cards/index.ts",
+    "./common": "./src/common/index.ts",
+    "./fx-rates": "./src/fx-rates/index.ts",
     "./payment-methods": "./src/payment-methods/index.ts",
     "./subscriptions": "./src/subscriptions/index.ts",
-    "./common": "./src/common/index.ts"
+    "./users": "./src/users/index.ts"
   },
   "scripts": {
     "lint:eslint": "eslint . --max-warnings=0",
