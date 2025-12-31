@@ -45,4 +45,5 @@ export const betterAuthOptions = (
   socialProviders: socialProvidersOptions(env),
   trustedOrigins: trustedOrigins(env),
   plugins: [passkey(), expo(), anonymous()],
+  database: { generateId: () => crypto.randomUUID() },
 });
