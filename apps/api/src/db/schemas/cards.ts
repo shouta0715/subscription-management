@@ -32,13 +32,13 @@ export const card = sqliteTable(
       .notNull(),
   },
   (table) => [
-    index("card_userId_idx").on(table.userId),
+    index("card_user_id_idx").on(table.userId),
     check(
-      "card_closingDay_check",
+      "card_closing_day_check",
       sql`${table.closingDay} >= 1 AND ${table.closingDay} <= 31`,
     ),
     check(
-      "card_paymentDay_check",
+      "card_payment_day_check",
       sql`${table.paymentDay} >= 1 AND ${table.paymentDay} <= 31`,
     ),
   ],

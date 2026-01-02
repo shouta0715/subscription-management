@@ -29,6 +29,13 @@
       "when": 1767338722895,
       "tag": "0003_dark_paper_doll",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1767339684217,
+      "tag": "0004_petite_cloak",
+      "breakpoints": true
     }
   ]
 }

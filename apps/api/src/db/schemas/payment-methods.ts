@@ -31,11 +31,10 @@ export const paymentMethod = sqliteTable(
       .notNull(),
   },
   (table) => [
-    index("paymentMethod_userId_idx").on(table.userId),
-    index("paymentMethod_cardId_idx").on(table.cardId),
-    // type = 'card' の場合は card_id 必須
+    index("payment_method_user_id_idx").on(table.userId),
+    index("payment_method_card_id_idx").on(table.cardId),
     check(
-      "paymentMethod_card_requires_cardId",
+      "payment_method_card_requires_cardId",
       sql`${table.type} != 'card' OR ${table.cardId} IS NOT NULL`,
     ),
   ],
