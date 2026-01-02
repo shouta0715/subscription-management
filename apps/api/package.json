@@ -19,11 +19,11 @@
     "@better-auth/expo": "^1.4.9",
     "@better-auth/passkey": "^1.4.9",
     "@libsql/client": "^0.15.15",
+    "@package/model": "workspace:*",
     "better-auth": "^1.4.9",
     "drizzle-orm": "^0.45.1",
     "hono": "^4.9.0",
-    "valibot": "catalog:",
-    "@package/model": "workspace:*"
+    "valibot": "catalog:"
   },
   "devDependencies": {
     "@package/eslint-config": "workspace:*",
@@ -32,6 +32,7 @@
     "dotenv": "^17.2.3",
     "drizzle-kit": "^0.31.8",
     "eslint": "catalog:",
+    "tsx": "^4.21.0",
     "typescript-eslint": "catalog:",
     "wrangler": "^4.28.1"
   }
