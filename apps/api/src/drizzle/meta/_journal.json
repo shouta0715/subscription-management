@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1766901809558,
-      "tag": "0000_better_auth_schema",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "6",
-      "when": 1767071755545,
-      "tag": "0001_appilication_schema",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "6",
-      "when": 1767329474608,
-      "tag": "0002_premium_tony_stark",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "6",
-      "when": 1767338722895,
-      "tag": "0003_dark_paper_doll",
+      "when": 1767339895397,
+      "tag": "0000_appilication_schema",
       "breakpoints": true
     }
   ]

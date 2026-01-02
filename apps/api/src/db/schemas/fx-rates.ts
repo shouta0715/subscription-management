@@ -6,6 +6,7 @@ import {
   real,
   index,
   uniqueIndex,
+  check,
 } from "drizzle-orm/sqlite-core";
 
 export const fxRateDaily = sqliteTable(
@@ -31,6 +32,7 @@ export const fxRateDaily = sqliteTable(
       table.quoteCurrency,
       table.rateDate,
     ),
-    index("fx_rate_daily_rateDate_idx").on(table.rateDate),
+    index("fx_rate_daily_rate_date_idx").on(table.rateDate),
+    check("fx_rate_daily_rate_check", sql`${table.rate} > 0`),
   ],
 );

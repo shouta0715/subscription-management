@@ -44,15 +44,14 @@ export const subscription = sqliteTable(
       .notNull(),
   },
   (table) => [
-    index("subscription_userId_idx").on(table.userId),
-    index("subscription_paymentMethodId_idx").on(table.paymentMethodId),
+    index("subscription_user_id_idx").on(table.userId),
     index("subscription_status_idx").on(table.status),
-    index("subscription_card_billing_idx").on(
+    index("subscription_billing_idx").on(
       table.paymentMethodId,
       table.billingStartDate,
       table.billingEndDate,
     ),
-    check("subscription_amountMinor_check", sql`${table.amountMinor} >= 0`),
+    check("subscription_amount_minor_check", sql`${table.amountMinor} >= 0`),
   ],
 );
 

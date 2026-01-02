@@ -32,8 +32,7 @@ export const subscriptionTag = sqliteTable(
       .notNull(),
   },
   (table) => [
-    index("subscription_tag_userId_idx").on(table.userId),
-    uniqueIndex("subscription_tag_userId_label_idx").on(
+    uniqueIndex("subscription_tag_user_id_label_idx").on(
       table.userId,
       table.label,
     ),
@@ -60,7 +59,7 @@ export const subscriptionTagAssignment = sqliteTable(
     primaryKey({
       columns: [table.userId, table.subscriptionId, table.subscriptionTagId],
     }),
-    index("subscription_tag_assignment_userId_tagId_idx").on(
+    index("subscription_tag_assignment_user_id_tag_id_idx").on(
       table.userId,
       table.subscriptionTagId,
     ),
