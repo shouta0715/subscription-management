@@ -74,6 +74,9 @@ importers:
       '@libsql/client':
         specifier: ^0.15.15
         version: 0.15.15
+      '@package/lib':
+        specifier: workspace:*
+        version: link:../../packages/lib
       '@package/model':
         specifier: workspace:*
         version: link:../../packages/model
