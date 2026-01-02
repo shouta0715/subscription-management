@@ -36,6 +36,13 @@
       "when": 1767339684217,
       "tag": "0004_petite_cloak",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1767339780740,
+      "tag": "0005_sparkling_wolverine",
+      "breakpoints": true
     }
   ]
 }
