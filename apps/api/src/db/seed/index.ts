@@ -3,6 +3,7 @@ import { config } from "dotenv";
 import { seedCards } from "./cards";
 import { seedFxRates } from "./fx-rates";
 import { seedPaymentMethods } from "./payment-methods";
+import { seedSubscriptionTags } from "./subscription-tags";
 import { seedSubscriptions } from "./subscriptions";
 import { seedUsers } from "./users";
 import * as schemas from "@/db/schemas";
@@ -21,6 +22,8 @@ const db = drizzleDatabase({
 const clearDatabase = async () => {
   console.debug("🗑️  Clearing database...");
 
+  await db.delete(schemas.subscriptionTagAssignment);
+  await db.delete(schemas.subscriptionTag);
   await db.delete(schemas.subscription);
   await db.delete(schemas.paymentMethod);
   await db.delete(schemas.card);
@@ -57,11 +60,15 @@ const seed = async () => {
       console.debug("");
 
       // 4. サブスクリプション（ユーザーと支払い方法に依存）
-      await seedSubscriptions(tx, users, paymentMethods);
+      const subscriptions = await seedSubscriptions(tx, users, paymentMethods);
+      console.debug("");
+
+      // 5. サブスクリプションタグ（ユーザーとサブスクリプションに依存）
+      await seedSubscriptionTags(tx, users, subscriptions);
       console.debug("");
     });
 
-    // 5. 為替レート（独立） → 外部キー依存しないのでトランザクション外でよい
+    // 6. 為替レート（独立） → 外部キー依存しないのでトランザクション外でよい
     await seedFxRates(db);
     console.debug("");
 

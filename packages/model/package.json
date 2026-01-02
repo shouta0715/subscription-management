@@ -9,6 +9,7 @@
     "./common": "./src/common/index.ts",
     "./fx-rates": "./src/fx-rates/index.ts",
     "./payment-methods": "./src/payment-methods/index.ts",
+    "./subscription-tags": "./src/subscription-tags/index.ts",
     "./subscriptions": "./src/subscriptions/index.ts",
     "./users": "./src/users/index.ts"
   },
