@@ -17,6 +17,9 @@ const socialProvidersOptions = (
   },
 });
 
+/**
+ * @see https://www.better-auth.com/docs/authentication/apple#configure-the-provider
+ */
 const APPLE_TRUSTED_ORIGIN = "https://appleid.apple.com";
 
 /**
