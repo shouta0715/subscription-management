@@ -12,6 +12,7 @@ import {
   check,
 } from "drizzle-orm/sqlite-core";
 import { paymentMethod } from "./payment-methods";
+import { subscriptionTagAssignment } from "./subscription-tags";
 import { user } from "./users";
 
 export const subscription = sqliteTable(
@@ -55,13 +56,17 @@ export const subscription = sqliteTable(
   ],
 );
 
-export const subscriptionRelations = relations(subscription, ({ one }) => ({
-  user: one(user, {
-    fields: [subscription.userId],
-    references: [user.id],
+export const subscriptionRelations = relations(
+  subscription,
+  ({ one, many }) => ({
+    user: one(user, {
+      fields: [subscription.userId],
+      references: [user.id],
+    }),
+    paymentMethod: one(paymentMethod, {
+      fields: [subscription.paymentMethodId],
+      references: [paymentMethod.id],
+    }),
+    tagAssignments: many(subscriptionTagAssignment),
   }),
-  paymentMethod: one(paymentMethod, {
-    fields: [subscription.paymentMethodId],
-    references: [paymentMethod.id],
-  }),
-}));
+);
