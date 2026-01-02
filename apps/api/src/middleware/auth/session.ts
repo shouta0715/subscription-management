@@ -1,3 +1,5 @@
+import { safeParseSchema } from "@package/lib/parser";
+import { userSchema } from "@package/model";
 import { except } from "hono/combine";
 import { createMiddleware } from "hono/factory";
 import { auth } from "@/lib/auth";
@@ -12,8 +14,13 @@ const requireSessionMiddleware = createMiddleware<AppEnv>(async (c, next) => {
     return c.json({ error: "Unauthorized" }, 401);
   }
 
-  c.set("user", session.user);
-  c.set("session", session.session);
+  const parsedUser = safeParseSchema(userSchema, session.user);
+
+  if (!parsedUser.success) {
+    return c.json({ error: "Invalid user" }, 401);
+  }
+
+  c.set("user", parsedUser.output);
   await next();
 });
 
