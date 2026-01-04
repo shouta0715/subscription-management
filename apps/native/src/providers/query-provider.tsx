@@ -1,7 +1,9 @@
-import { focusManager, QueryClientProvider } from "@tanstack/react-query";
+import { focusManager } from "@tanstack/react-query";
+import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import { useEffect } from "react";
 import { AppState, AppStateStatus, Platform } from "react-native";
 import { queryClient } from "@/lib/query-client";
+import { persistStorageClient } from "@/lib/storage-client";
 
 type Props = {
   children: React.ReactNode;
@@ -24,6 +26,11 @@ export const TanstackQueryClientProvider = ({ children }: Props) => {
   }, []);
 
   return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <PersistQueryClientProvider
+      client={queryClient}
+      persistOptions={{ persister: persistStorageClient }}
+    >
+      {children}
+    </PersistQueryClientProvider>
   );
 };
