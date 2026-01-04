@@ -1,7 +1,12 @@
 import { parseSchema } from "@package/lib/parser";
-import { SubscriptionTag, subscriptionTagSchema } from "@package/model";
+import {
+  SubscriptionTag,
+  SubscriptionTagAssignment,
+  subscriptionTagAssignmentSchema,
+  subscriptionTagSchema,
+} from "@package/model";
 import { eq } from "drizzle-orm";
-import { subscriptionTag } from "@/db/schemas";
+import { subscriptionTag, subscriptionTagAssignment } from "@/db/schemas";
 import { factory } from "@/helpers/factory";
 
 const app = factory.createApp();
@@ -15,6 +20,18 @@ app.get("/", async (c) => {
 
   return c.json<SubscriptionTag[]>(
     tags.map((tag) => parseSchema(subscriptionTagSchema, tag)),
+  );
+});
+
+app.get("/assignments", async (c) => {
+  const userId = c.var.user.id;
+  const assignments = await c.var.db
+    .select()
+    .from(subscriptionTagAssignment)
+    .where(eq(subscriptionTagAssignment.userId, userId));
+
+  return c.json<SubscriptionTagAssignment[]>(
+    assignments.map((a) => parseSchema(subscriptionTagAssignmentSchema, a)),
   );
 });
 

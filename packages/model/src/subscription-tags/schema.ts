@@ -1,6 +1,7 @@
 import * as v from "valibot";
 
 import { timestampSchema } from "../common";
+import { subscriptionIdSchema } from "../subscriptions/id";
 import { userIdSchema } from "../users/id";
 
 import { subscriptionTagColorTokenSchema } from "./color";
@@ -16,3 +17,14 @@ export const subscriptionTagSchema = v.object({
 });
 
 export type SubscriptionTag = v.InferOutput<typeof subscriptionTagSchema>;
+
+export const subscriptionTagAssignmentSchema = v.object({
+  userId: userIdSchema,
+  subscriptionId: subscriptionIdSchema,
+  subscriptionTagId: subscriptionTagIdSchema,
+  createdAt: timestampSchema,
+});
+
+export type SubscriptionTagAssignment = v.InferOutput<
+  typeof subscriptionTagAssignmentSchema
+>;
