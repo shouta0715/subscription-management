@@ -1,9 +1,8 @@
 import { User } from "@package/model";
-import { LibSQLDatabase } from "drizzle-orm/libsql";
-import * as schemas from "@/db/schemas";
+import { DB } from "./db";
 
 type Variables = {
-  db: LibSQLDatabase<typeof schemas>;
+  db: DB;
   user: User;
 };
 
