@@ -20,6 +20,18 @@ const config = defineConfig(
       "eslint-plugin-n/no-process-env": "error",
       "expo/no-env-var-destructuring": "error",
       "expo/no-dynamic-env-var": "error",
+      "no-restricted-imports": [
+        "error",
+        {
+          paths: [
+            {
+              name: "react-native",
+              importNames: ["Text"],
+              message: "Please import from `@/components/native` instead.",
+            },
+          ],
+        },
+      ],
     },
   }
 );
