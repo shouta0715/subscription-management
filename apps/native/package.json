@@ -17,6 +17,7 @@
     "@better-auth/passkey": "^1.4.9",
     "@expo/vector-icons": "^15.0.3",
     "@gorhom/bottom-sheet": "^5.2.8",
+    "@hookform/resolvers": "^5.2.2",
     "@package/lib": "workspace:*",
     "@package/model": "workspace:*",
     "@react-navigation/bottom-tabs": "^7.4.0",
@@ -48,6 +49,7 @@
     "heroui-native": "1.0.0-beta.10",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "react-hook-form": "^7.69.0",
     "react-native": "0.81.5",
     "react-native-css": "^3.0.1",
     "react-native-gesture-handler": "~2.28.0",
@@ -64,7 +66,8 @@
     "tailwind-variants": "^3.2.2",
     "tailwindcss": "catalog:",
     "uniwind": "^1.2.2",
-    "valibot": "catalog:"
+    "valibot": "catalog:",
+    "clsx": "catalog:"
   },
   "devDependencies": {
     "@package/eslint-config": "workspace:*",
