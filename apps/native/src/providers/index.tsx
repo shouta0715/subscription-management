@@ -4,6 +4,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaListener } from "react-native-safe-area-context";
 import { Uniwind } from "uniwind";
 import { TanstackQueryClientProvider } from "./query-provider";
+import { SplashScreenProvider } from "./splash-screen";
 
 export const Providers = ({ children }: { children: React.ReactNode }) => (
   <TanstackQueryClientProvider>
@@ -13,7 +14,9 @@ export const Providers = ({ children }: { children: React.ReactNode }) => (
       }}
     >
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <HeroUINativeProvider>{children}</HeroUINativeProvider>
+        <HeroUINativeProvider>
+          <SplashScreenProvider>{children}</SplashScreenProvider>
+        </HeroUINativeProvider>
       </GestureHandlerRootView>
     </SafeAreaListener>
   </TanstackQueryClientProvider>
