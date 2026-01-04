@@ -3,7 +3,7 @@ import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client
 import { useEffect } from "react";
 import { AppState, AppStateStatus, Platform } from "react-native";
 import { queryClient } from "@/lib/query-client";
-import { persistStorageClient } from "@/lib/storage-client";
+import { persistStorageClient } from "@/lib/storage/client";
 
 type Props = {
   children: React.ReactNode;

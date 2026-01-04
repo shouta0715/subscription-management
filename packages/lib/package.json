@@ -4,7 +4,8 @@
   "type": "module",
   "private": true,
   "exports": {
-    "./parser": "./src/parser.ts"
+    "./parser": "./src/parser.ts",
+    "./guard": "./src/guard/index.ts"
   },
   "scripts": {
     "lint:eslint": "eslint . --max-warnings=0",
