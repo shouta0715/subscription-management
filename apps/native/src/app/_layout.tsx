@@ -6,7 +6,7 @@ import { isOnboardingCompleted } from "@/features/onboarding/utils/is-completed"
 import { useSession } from "@/lib/auth-client";
 import { Providers } from "@/providers";
 
-export default function RootLayout() {
+function RootLayout() {
   const { data: session } = useSession();
   const isAuthenticated = !isNullish(session);
 
@@ -30,3 +30,5 @@ export default function RootLayout() {
     </Providers>
   );
 }
+
+export default RootLayout;
