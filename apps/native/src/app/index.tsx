@@ -1,22 +1,18 @@
-import { Link, Redirect } from "expo-router";
+import { Link } from "expo-router";
 import { View } from "react-native";
 import { Button, ButtonLabel } from "@/components/button";
-import {
-  currentOnboardingStep,
-  currentOnboardingStepIsFirstStep,
-} from "@/features/onboarding/utils/step";
 
 function Page() {
-  // MEMO: すでにオンボーディングを行っている場合はそのステップにリダイレクト
-  if (!currentOnboardingStepIsFirstStep()) {
-    return <Redirect href={`/(onboarding)/${currentOnboardingStep()}`} />;
-  }
-
   return (
     <View className="flex-1 items-center justify-center">
-      <Link asChild href="/(onboarding)/choose-signup">
+      <Link asChild href="/sign-up">
         <Button size="sm" variant="primary">
-          <ButtonLabel bold>はじめる</ButtonLabel>
+          <ButtonLabel bold>新しくはじめる</ButtonLabel>
+        </Button>
+      </Link>
+      <Link asChild href="/sign-in">
+        <Button size="sm" variant="secondary">
+          <ButtonLabel bold>既存のアカウントでログイン</ButtonLabel>
         </Button>
       </Link>
     </View>

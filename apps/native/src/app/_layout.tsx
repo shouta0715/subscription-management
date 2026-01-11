@@ -2,7 +2,7 @@ import "@/tailwind.css";
 
 import { isNullish } from "@package/lib/guard";
 import { Stack } from "expo-router";
-import { isOnboardingCompleted } from "@/features/onboarding/utils/is-completed";
+import React from "react";
 import { useSession } from "@/lib/auth-client";
 import { Providers } from "@/providers";
 
@@ -12,19 +12,30 @@ function RootLayout() {
 
   return (
     <Providers>
-      <Stack screenOptions={{ headerShown: false }}>
+      <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Protected guard={!isAuthenticated}>
-          <Stack.Screen name="index" />
+          <Stack.Screen
+            name="sign-up"
+            options={{
+              title: "",
+              headerBackButtonDisplayMode: "minimal",
+              headerShadowVisible: false,
+            }}
+          />
+          <Stack.Screen
+            name="sign-in"
+            options={{
+              title: "",
+              headerBackButtonDisplayMode: "minimal",
+              headerShadowVisible: false,
+            }}
+          />
         </Stack.Protected>
 
         {/* authenticated routes */}
-        <Stack.Protected guard={isAuthenticated && isOnboardingCompleted()}>
-          <Stack.Screen name="(authenticated)" />
-        </Stack.Protected>
-
-        {/* onboarding routes */}
-        <Stack.Protected guard={!isOnboardingCompleted()}>
-          <Stack.Screen name="(onboarding)" />
+        <Stack.Protected guard={isAuthenticated}>
+          <Stack.Screen name="(app)" options={{ headerShown: false }} />
         </Stack.Protected>
       </Stack>
     </Providers>
