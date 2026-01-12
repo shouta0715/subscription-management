@@ -1,17 +1,17 @@
 import { useFonts } from "expo-font";
 import { SplashScreen } from "expo-router";
+import { useEffect } from "react";
 import interRegular from "../../assets/fonts/Inter-Regular.ttf";
 import interSemiBold from "../../assets/fonts/Inter-SemiBold.ttf";
 import notoSansJPRegular from "../../assets/fonts/NotoSansJP-Regular.ttf";
 import notoSansJPSemiBold from "../../assets/fonts/NotoSansJP-SemiBold.ttf";
 import { useSession } from "@/lib/auth-client";
 
+void SplashScreen.preventAutoHideAsync();
+
 type Props = {
   children: React.ReactNode;
 };
-
-void SplashScreen.preventAutoHideAsync();
-
 export const SplashScreenProvider = ({ children }: Props) => {
   const { isPending } = useSession();
   const [loaded] = useFonts({
@@ -21,9 +21,15 @@ export const SplashScreenProvider = ({ children }: Props) => {
     "Inter-SemiBold": interSemiBold,
   });
 
-  if (!isPending && loaded) {
-    void SplashScreen.hideAsync();
-  }
+  const isReady = !isPending && loaded;
+
+  useEffect(() => {
+    if (isReady) {
+      SplashScreen.hide();
+    }
+  }, [isReady]);
+
+  if (!isReady) return null;
 
   return children;
 };

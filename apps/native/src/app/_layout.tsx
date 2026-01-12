@@ -9,6 +9,7 @@ import { isAnonymousUser } from "@/util/is-anonymous-user";
 
 function RootLayout() {
   const { data: session } = useSession();
+
   const isAuthenticated = !isNullish(session);
 
   const canAccessAuthRoute = !isAuthenticated || isAnonymousUser(session);
@@ -38,7 +39,10 @@ function RootLayout() {
 
         {/* authenticated routes */}
         <Stack.Protected guard={isAuthenticated}>
-          <Stack.Screen name="(app)" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="(app)"
+            options={{ headerShown: false, animation: "none" }}
+          />
         </Stack.Protected>
       </Stack>
     </Providers>

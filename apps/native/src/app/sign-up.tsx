@@ -7,6 +7,7 @@ import { isAnonymousUser } from "@/util/is-anonymous-user";
 
 function Page() {
   const { data: session } = useSession();
+
   // MEMO: 匿名アカウントじゃない場合はダッシュボードにリダイレクト
   if (!isNullish(session) && !isAnonymousUser(session)) {
     return <Redirect href="/dashboard" />;
