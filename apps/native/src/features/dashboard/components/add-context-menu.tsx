@@ -1,4 +1,5 @@
 import { Alert } from "react-native";
+import { ContextMenuAction } from "react-native-context-menu-view";
 import { match } from "ts-pattern";
 import { Button } from "@/components/button";
 import { PlusIcon } from "@/components/icon/plus";
@@ -20,6 +21,11 @@ const ADD_MENU_ACTIONS = [
 
 type AddMenuActionId = (typeof ADD_MENU_ACTIONS)[number]["id"];
 
+const actions = ADD_MENU_ACTIONS.map(({ title, systemIcon }) => ({
+  title,
+  systemIcon,
+})) satisfies ContextMenuAction[];
+
 export const AddContextMenu = () => {
   const handleMenuPress = (actionId: AddMenuActionId) => {
     match(actionId)
@@ -40,15 +46,11 @@ export const AddContextMenu = () => {
   return (
     <ContextMenu
       disableShadow
-      actions={ADD_MENU_ACTIONS.map(({ title, systemIcon }) => ({
-        title,
-        systemIcon,
-      }))}
+      actions={actions}
       onPress={(e) => {
         const action = ADD_MENU_ACTIONS[e.nativeEvent.index];
-        if (action) {
-          handleMenuPress(action.id);
-        }
+
+        handleMenuPress(action.id);
       }}
     >
       <GlassView isInteractive className="rounded-full">
