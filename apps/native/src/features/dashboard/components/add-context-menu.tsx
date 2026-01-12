@@ -54,8 +54,16 @@ export const AddContextMenu = () => {
       }}
     >
       <GlassView isInteractive className="rounded-full">
-        <Button isIconOnly pressableFeedbackVariant="none" variant="ghost">
-          <PlusIcon aria-label="Add" />
+        <Button
+          isIconOnly
+          pressableFeedbackVariant="none"
+          variant="ghost"
+          onPress={() => {
+            // TODO: カード追加ページへの遷移を実装
+            Alert.alert("カード追加", "カード追加ページを実装予定です");
+          }}
+        >
+          <PlusIcon aria-label="カードを追加" />
         </Button>
       </GlassView>
     </ContextMenu>
