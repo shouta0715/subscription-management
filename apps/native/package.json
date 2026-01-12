@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "@better-auth/expo": "^1.4.9",
-    "@better-auth/passkey": "^1.4.9",
     "@expo/vector-icons": "^15.0.3",
     "@gorhom/bottom-sheet": "^5.2.8",
     "@hookform/resolvers": "^5.2.2",
@@ -34,6 +33,7 @@
     "better-auth": "^1.4.9",
     "clsx": "catalog:",
     "expo": "~54.0.31",
+    "expo-better-auth-passkey": "^1.4.0",
     "expo-constants": "~18.0.13",
     "expo-font": "~14.0.10",
     "expo-haptics": "~15.0.8",

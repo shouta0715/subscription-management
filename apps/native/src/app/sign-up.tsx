@@ -3,11 +3,12 @@ import { Redirect } from "expo-router";
 import { View } from "react-native";
 import { SignUp } from "@/features/auth/components/sing-up";
 import { useSession } from "@/lib/auth-client";
+import { isAnonymousUser } from "@/util/is-anonymous-user";
 
 function Page() {
   const { data: session } = useSession();
-
-  if (!isNullish(session)) {
+  // MEMO: 匿名アカウントじゃない場合はダッシュボードにリダイレクト
+  if (!isNullish(session) && !isAnonymousUser(session)) {
     return <Redirect href="/dashboard" />;
   }
 

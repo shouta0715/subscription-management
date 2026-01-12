@@ -5,16 +5,19 @@ import { Stack } from "expo-router";
 import React from "react";
 import { useSession } from "@/lib/auth-client";
 import { Providers } from "@/providers";
+import { isAnonymousUser } from "@/util/is-anonymous-user";
 
 function RootLayout() {
   const { data: session } = useSession();
   const isAuthenticated = !isNullish(session);
 
+  const canAccessAuthRoute = !isAuthenticated || isAnonymousUser(session);
+
   return (
     <Providers>
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Protected guard={!isAuthenticated}>
+        <Stack.Protected guard={canAccessAuthRoute}>
           <Stack.Screen
             name="sign-up"
             options={{
