@@ -1,8 +1,17 @@
-import { Link } from "expo-router";
+import { isNullish } from "@package/lib/guard";
+import { Link, Redirect } from "expo-router";
 import { View } from "react-native";
 import { Button, ButtonLabel } from "@/components/button";
+import { useSession } from "@/lib/auth-client";
 
 function Page() {
+  const { data: session } = useSession();
+  const isAuthenticated = !isNullish(session);
+
+  if (isAuthenticated) {
+    return <Redirect href="/dashboard" />;
+  }
+
   return (
     <View className="flex-1 items-center justify-center">
       <Link asChild href="/sign-up">
