@@ -135,6 +135,9 @@ importers:
       '@hookform/resolvers':
         specifier: ^5.2.2
         version: 5.2.2(react-hook-form@7.69.0(react@19.1.0))
+      '@legendapp/list':
+        specifier: ^2.0.19
+        version: 2.0.19(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       '@package/lib':
         specifier: workspace:*
         version: link:../../packages/lib
@@ -186,6 +189,9 @@ importers:
       expo-better-auth-passkey:
         specifier: ^1.4.0
         version: 1.4.0(@better-auth/passkey@1.4.9(@better-auth/core@1.4.9(@better-auth/utils@0.3.0)(@better-fetch/fetch@1.1.21)(better-call@1.1.7(zod@4.1.13))(jose@6.1.3)(kysely@0.28.9)(nanostores@1.1.0))(@better-auth/utils@0.3.0)(@better-fetch/fetch@1.1.21)(better-auth@1.4.9(drizzle-kit@0.31.8)(drizzle-orm@0.45.1(@libsql/client@0.15.15)(kysely@0.28.9))(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(better-call@1.1.7(zod@4.1.13))(nanostores@1.1.0))(@better-fetch/fetch@1.1.21)(better-auth@1.4.9(drizzle-kit@0.31.8)(drizzle-orm@0.45.1(@libsql/client@0.15.15)(kysely@0.28.9))(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(expo@54.0.31)(nanostores@1.1.0)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
+      expo-blur:
+        specifier: ~15.0.8
+        version: 15.0.8(expo@54.0.31)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       expo-constants:
         specifier: ~18.0.13
         version: 18.0.13(expo@54.0.31)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.10)(react@19.1.0))
@@ -198,6 +204,9 @@ importers:
       expo-image:
         specifier: ~3.0.11
         version: 3.0.11(expo@54.0.31)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
+      expo-linear-gradient:
+        specifier: ~15.0.8
+        version: 15.0.8(expo@54.0.31)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       expo-linking:
         specifier: ~8.0.11
         version: 8.0.11(expo@54.0.31)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
@@ -1919,6 +1928,12 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
+
+  '@legendapp/list@2.0.19':
+    resolution: {integrity: sha512-zDWg8yg0smKxxk+M7gwAbZAnf5uczohPA+IjqLSkImz7+e9ytxeT0Mq35RBO9RTKODOXfV/aIgm1uqUHLBEdmg==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
 
   '@levischuck/tiny-cbor@0.2.11':
     resolution: {integrity: sha512-llBRm4dT4Z89aRsm6u2oEZ8tfwL/2l6BwpZ7JcyieouniDECM5AqNgr/y08zalEIvW3RSK4upYyybDcmjXqAow==}
@@ -3972,6 +3987,13 @@ packages:
       react: '*'
       react-native: '*'
 
+  expo-blur@15.0.8:
+    resolution: {integrity: sha512-rWyE1NBRZEu9WD+X+5l7gyPRszw7n12cW3IRNAb5i6KFzaBp8cxqT5oeaphJapqURvcqhkOZn2k5EtBSbsuU7w==}
+    peerDependencies:
+      expo: '*'
+      react: '*'
+      react-native: '*'
+
   expo-constants@18.0.13:
     resolution: {integrity: sha512-FnZn12E1dRYKDHlAdIyNFhBurKTS3F9CrfrBDJI5m3D7U17KBHMQ6JEfYlSj7LG7t+Ulr+IKaj58L1k5gBwTcQ==}
     peerDependencies:
@@ -4012,6 +4034,13 @@ packages:
     peerDependencies:
       expo: '*'
       react: '*'
+
+  expo-linear-gradient@15.0.8:
+    resolution: {integrity: sha512-V2d8Wjn0VzhPHO+rrSBtcl+Fo+jUUccdlmQ6OoL9/XQB7Qk3d9lYrqKDJyccwDxmQT10JdST3Tmf2K52NLc3kw==}
+    peerDependencies:
+      expo: '*'
+      react: '*'
+      react-native: '*'
 
   expo-linking@8.0.11:
     resolution: {integrity: sha512-+VSaNL5om3kOp/SSKO5qe6cFgfSIWnnQDSbA7XLs3ECkYzXRquk5unxNS3pg7eK5kNUmQ4kgLI7MhTggAEUBLA==}
@@ -8032,6 +8061,12 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
+  '@legendapp/list@2.0.19(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      react: 19.1.0
+      react-native: 0.81.5(@babel/core@7.28.5)(@types/react@19.1.10)(react@19.1.0)
+      use-sync-external-store: 1.6.0(react@19.1.0)
+
   '@levischuck/tiny-cbor@0.2.11': {}
 
   '@libsql/client@0.15.15':
@@ -10347,6 +10382,12 @@ snapshots:
       react: 19.1.0
       react-native: 0.81.5(@babel/core@7.28.5)(@types/react@19.1.10)(react@19.1.0)
 
+  expo-blur@15.0.8(expo@54.0.31)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.10)(react@19.1.0))(react@19.1.0):
+    dependencies:
+      expo: 54.0.31(@babel/core@7.28.5)(@expo/metro-runtime@6.1.2)(expo-router@6.0.21)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
+      react: 19.1.0
+      react-native: 0.81.5(@babel/core@7.28.5)(@types/react@19.1.10)(react@19.1.0)
+
   expo-constants@18.0.13(expo@54.0.31)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.10)(react@19.1.0)):
     dependencies:
       '@expo/config': 12.0.13
@@ -10384,6 +10425,12 @@ snapshots:
     dependencies:
       expo: 54.0.31(@babel/core@7.28.5)(@expo/metro-runtime@6.1.2)(expo-router@6.0.21)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
+
+  expo-linear-gradient@15.0.8(expo@54.0.31)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.10)(react@19.1.0))(react@19.1.0):
+    dependencies:
+      expo: 54.0.31(@babel/core@7.28.5)(@expo/metro-runtime@6.1.2)(expo-router@6.0.21)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
+      react: 19.1.0
+      react-native: 0.81.5(@babel/core@7.28.5)(@types/react@19.1.10)(react@19.1.0)
 
   expo-linking@8.0.11(expo@54.0.31)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.10)(react@19.1.0))(react@19.1.0):
     dependencies:
