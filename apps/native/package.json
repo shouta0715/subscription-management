@@ -72,6 +72,7 @@
     "tailwind-merge": "catalog:",
     "tailwind-variants": "^3.2.2",
     "tailwindcss": "catalog:",
+    "ts-pattern": "catalog:",
     "uniwind": "^1.2.2",
     "valibot": "catalog:"
   },
