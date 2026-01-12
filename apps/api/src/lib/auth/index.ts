@@ -12,10 +12,9 @@ export const auth = (
   });
 
   return betterAuth({
-    ...betterAuthOptions,
+    ...betterAuthOptions(env),
     database: drizzleAdapter(db, { provider: "sqlite" }),
     baseURL: env.BETTER_AUTH_URL,
     secret: env.BETTER_AUTH_SECRET,
-    trustedOrigins: [env.CLIENT_URL],
   });
 };
