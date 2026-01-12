@@ -9,11 +9,16 @@ type Props = OAuthButtonProps & {
 export const PasskeyAuthButton = ({
   onPress,
   label = "Create a Passkey",
+  isPending,
+  isDisabled,
+  ...props
 }: Props) => (
   <Button
     className="h-[44px] w-[300px] items-center justify-center rounded-full border border-[#747775] bg-[#FFFFFF] dark:border-[#8E918F] dark:bg-[#131314]"
+    isDisabled={isPending || isDisabled}
     pressableFeedbackVariant="none"
     onPress={onPress}
+    {...props}
   >
     <PasskeyIcon aria-label="Passkey" />
     <ButtonLabel
