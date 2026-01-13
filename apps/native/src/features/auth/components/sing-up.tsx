@@ -12,7 +12,7 @@ import { useSession } from "@/lib/auth-client";
 
 export function SignUp() {
   const { signInAnonymous, isPending } = useSignInAnonymous();
-  const session = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
 
   const handleSignInAnonymous = async () => {
