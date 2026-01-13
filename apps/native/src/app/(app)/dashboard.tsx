@@ -1,10 +1,11 @@
 import React from "react";
-import { View } from "react-native";
-import { GlassContainer } from "@/components/native/glass-effect";
+import { Alert, View } from "react-native";
+import { Button } from "@/components/button";
+import { PlusIcon } from "@/components/icon/plus";
+import { GlassContainer, GlassView } from "@/components/native/glass-effect";
 import { SafeAreaView } from "@/components/native/safe-area-view";
 import { Text } from "@/components/native/text";
-import { AddContextMenu } from "@/features/dashboard/components/add-context-menu";
-import { MoreContextMenu } from "@/features/dashboard/components/more-context-menu";
+import { MoreContextMenu } from "@/features/dashboard/context-menu/components/more-context-menu";
 import { WalletCarousel } from "@/features/dashboard/wallet-carousel/components";
 
 function Dashboard() {
@@ -17,7 +18,20 @@ function Dashboard() {
         </Text>
 
         <GlassContainer className="flex-row items-center gap-2">
-          <AddContextMenu />
+          <GlassView
+            isInteractive
+            className="flex-row items-center justify-center rounded-full"
+          >
+            <Button
+              isIconOnly
+              pressableFeedbackVariant="none"
+              variant="ghost"
+              onPress={() => Alert.alert("カードを追加")}
+            >
+              <PlusIcon aria-label="カードを追加" />
+            </Button>
+          </GlassView>
+
           <MoreContextMenu />
         </GlassContainer>
       </View>
