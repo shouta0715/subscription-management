@@ -3,6 +3,7 @@ import { defineConfig } from "eslint/config";
 
 export default defineConfig(...eslintConfig, {
   rules: {
+    "jsx-a11y/aria-role": "off",
     "no-restricted-imports": [
       "error",
       {
@@ -30,10 +31,9 @@ export default defineConfig(...eslintConfig, {
               "Please import from `@/components/native/glass-effect` instead.",
           },
           {
-            name: "react-native-context-menu-view",
-            importNames: ["default"],
-            message:
-              "Please import from `@/components/native/context-menu` instead.",
+            name: "@expo/ui/swift-ui",
+            importNames: ["Host"],
+            message: "Please import from `@/components/native/host` instead.",
           },
         ],
       },
