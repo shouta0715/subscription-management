@@ -1,11 +1,12 @@
-import React from "react";
+import { HStack } from "@expo/ui/swift-ui";
+import { glassEffect } from "@expo/ui/swift-ui/modifiers";
 import { Alert, View } from "react-native";
-import { Button } from "@/components/button";
-import { PlusIcon } from "@/components/icon/plus";
-import { GlassContainer, GlassView } from "@/components/native/glass-effect";
+import { Host } from "@/components/native/host";
 import { SafeAreaView } from "@/components/native/safe-area-view";
 import { Text } from "@/components/native/text";
-import { MoreContextMenu } from "@/features/dashboard/context-menu/components/more-context-menu";
+import { AddButton } from "@/features/dashboard/header/components/add-button";
+import { MoreContextMenu } from "@/features/dashboard/header/components/more-context-menu";
+import { SortButton } from "@/features/dashboard/header/components/sort-button";
 import { WalletCarousel } from "@/features/dashboard/wallet-carousel/components";
 
 function Dashboard() {
@@ -17,23 +18,21 @@ function Dashboard() {
           ウォレット
         </Text>
 
-        <GlassContainer className="flex-row items-center gap-2">
-          <GlassView
-            isInteractive
-            className="flex-row items-center justify-center rounded-full"
-          >
-            <Button
-              isIconOnly
-              pressableFeedbackVariant="none"
-              variant="ghost"
-              onPress={() => Alert.alert("カードを追加")}
+        <Host matchContents>
+          <HStack spacing={12}>
+            <AddButton />
+            <HStack
+              modifiers={[
+                glassEffect({
+                  glass: { variant: "regular", interactive: true },
+                }),
+              ]}
             >
-              <PlusIcon aria-label="カードを追加" />
-            </Button>
-          </GlassView>
-
-          <MoreContextMenu />
-        </GlassContainer>
+              <SortButton onPress={() => Alert.alert("Sort Button Pressed")} />
+              <MoreContextMenu />
+            </HStack>
+          </HStack>
+        </Host>
       </View>
 
       {/* ウォレットカルーセル */}
