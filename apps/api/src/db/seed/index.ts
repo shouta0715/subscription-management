@@ -1,11 +1,13 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
+/* eslint-disable import/no-extraneous-dependencies */
+import { parseSchema } from "@package/lib/parser";
+import { userIdSchema } from "@package/model";
 import { config } from "dotenv";
+import { eq } from "drizzle-orm";
 import { seedCards } from "./cards";
 import { seedFxRates } from "./fx-rates";
 import { seedPaymentMethods } from "./payment-methods";
 import { seedSubscriptionTags } from "./subscription-tags";
 import { seedSubscriptions } from "./subscriptions";
-import { seedUsers } from "./users";
 import * as schemas from "@/db/schemas";
 import { drizzleDatabase } from "@/helpers/drizzle";
 import { parseEnv } from "@/helpers/env";
@@ -19,56 +21,95 @@ const db = drizzleDatabase({
   authToken: env.DB_AUTH_TOKEN,
 });
 
-const clearDatabase = async () => {
-  console.debug("🗑️  Clearing database...");
+const clearUserData = async (userId: string) => {
+  console.debug("🗑️  Clearing user data...");
 
-  await db.delete(schemas.subscriptionTagAssignment);
-  await db.delete(schemas.subscriptionTag);
-  await db.delete(schemas.subscription);
-  await db.delete(schemas.paymentMethod);
-  await db.delete(schemas.card);
+  // 外部キー制約の順序に従って削除（依存される側から）
+  await db
+    .delete(schemas.subscriptionTagAssignment)
+    .where(eq(schemas.subscriptionTagAssignment.userId, userId));
+
+  await db
+    .delete(schemas.subscriptionTag)
+    .where(eq(schemas.subscriptionTag.userId, userId));
+
+  await db
+    .delete(schemas.subscription)
+    .where(eq(schemas.subscription.userId, userId));
+
+  await db
+    .delete(schemas.paymentMethod)
+    .where(eq(schemas.paymentMethod.userId, userId));
+
+  await db.delete(schemas.card).where(eq(schemas.card.userId, userId));
+
+  // 為替レートは全件削除（グローバルデータ）
   await db.delete(schemas.fxRateDaily);
-  await db.delete(schemas.session);
-  await db.delete(schemas.account);
-  await db.delete(schemas.passkey);
-  await db.delete(schemas.verification);
-  await db.delete(schemas.user);
 
-  console.debug("✅ Database cleared");
+  console.debug("✅ User data cleared");
 };
 
 const seed = async () => {
   console.debug("🚀 Starting seed process...\n");
 
   try {
-    // データベースをクリア
-    await clearDatabase();
+    // 1. コマンドライン引数からユーザーIDを取得
+    const userId = process.argv[2];
+    if (!userId) {
+      console.error("❌ User ID is required");
+      console.debug("Usage: pnpm db:seed <userId>");
+      process.exit(1);
+    }
+
+    // 2. ユーザーIDのバリデーション
+    let validatedUserId: string;
+    try {
+      validatedUserId = parseSchema(userIdSchema, userId);
+    } catch (error) {
+      console.error(`❌ Invalid user ID format: ${userId}`);
+      console.error(error);
+      process.exit(1);
+    }
+
+    // 3. ユーザーの存在確認
+    const [existingUser] = await db
+      .select()
+      .from(schemas.user)
+      .where(eq(schemas.user.id, validatedUserId));
+
+    if (!existingUser) {
+      console.error(`❌ User not found: ${userId}`);
+      process.exit(1);
+    }
+
+    console.debug(
+      `✅ Found user: ${existingUser.name} (${existingUser.email})`,
+    );
     console.debug("");
 
-    // トランザクションでまとめてインサート処理（外部キー制約のため）
-    await db.transaction(async (tx) => {
-      // 1. ユーザー
-      const users = await seedUsers(tx);
-      console.debug("");
+    // 4. 指定ユーザーのデータを削除
+    await clearUserData(validatedUserId);
+    console.debug("");
 
-      // 2. カード（ユーザーに依存）
+    // 5. トランザクションでデータを作成
+    await db.transaction(async (tx) => {
+      // 既存ユーザーを配列に入れて各関数に渡す
+      const users = [existingUser];
+
       const cards = await seedCards(tx, users);
       console.debug("");
 
-      // 3. 支払い方法（ユーザーとカードに依存）
       const paymentMethods = await seedPaymentMethods(tx, users, cards);
       console.debug("");
 
-      // 4. サブスクリプション（ユーザーと支払い方法に依存）
       const subscriptions = await seedSubscriptions(tx, users, paymentMethods);
       console.debug("");
 
-      // 5. サブスクリプションタグ（ユーザーとサブスクリプションに依存）
       await seedSubscriptionTags(tx, users, subscriptions);
       console.debug("");
     });
 
-    // 6. 為替レート（独立） → 外部キー依存しないのでトランザクション外でよい
+    // 6. 為替レートを作成（トランザクション外）
     await seedFxRates(db);
     console.debug("");
 

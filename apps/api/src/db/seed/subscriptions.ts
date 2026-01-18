@@ -60,7 +60,7 @@ const createSubscriptionBase = (
   const currency: SubscriptionCurrency = pickRandom(subscriptionCurrencies);
 
   const startDate: Date = new Date(now);
-  startDate.setDate(startDate.getDate() - randomInt(0, 365));
+  startDate.setDate(startDate.getDate() - randomInt(0, 30));
 
   return {
     id: parseSchema(subscriptionIdSchema, crypto.randomUUID()),
@@ -112,7 +112,7 @@ const createCanceledSubscription = (
   const base = createSubscriptionBase(userId, paymentMethodId, index, now);
 
   const canceledDateRaw: Date = new Date(base.startDate);
-  canceledDateRaw.setDate(canceledDateRaw.getDate() + randomInt(30, 210));
+  canceledDateRaw.setDate(canceledDateRaw.getDate() + randomInt(0, 30));
 
   const endDateRaw: Date = new Date(canceledDateRaw);
   endDateRaw.setDate(endDateRaw.getDate() + randomInt(0, 30));

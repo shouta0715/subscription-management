@@ -13,15 +13,15 @@ const BATCH_SIZE = 50;
 
 const generateFxRates = (): FxRateDaily[] => {
   const now = new Date();
-  const threeMonthsAgo = new Date(now);
-  threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+  const oneMonthAgo = new Date(now);
+  oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
 
   const dayCount = Math.ceil(
-    (now.getTime() - threeMonthsAgo.getTime()) / (1000 * 60 * 60 * 24),
+    (now.getTime() - oneMonthAgo.getTime()) / (1000 * 60 * 60 * 24),
   );
 
   return Array.from({ length: dayCount + 1 }, (_, i) => {
-    const date = new Date(threeMonthsAgo);
+    const date = new Date(oneMonthAgo);
     date.setDate(date.getDate() + i);
 
     const dateStr = date.toISOString().split("T")[0] ?? "";
