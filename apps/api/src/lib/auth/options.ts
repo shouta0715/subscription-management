@@ -47,12 +47,15 @@ export const betterAuthOptions = (
   appName: "Sub Mana",
   socialProviders: socialProvidersOptions(env),
   trustedOrigins: trustedOrigins(env),
-
   plugins: [
     passkey(),
     /** @see https://github.com/better-auth/better-auth/issues/5568 */
     expo({ disableOriginOverride: true }),
     anonymous(),
   ],
-  database: { generateId: () => crypto.randomUUID() },
+  advanced: {
+    database: {
+      generateId: () => crypto.randomUUID(),
+    },
+  },
 });
