@@ -1,36 +1,38 @@
 import { AnimatedLegendList } from "@legendapp/list/reanimated";
-import { parseSchema } from "@package/lib/parser";
-import { cardIdSchema } from "@package/model/cards";
-import { userIdSchema } from "@package/model/users";
+import { useLiveSuspenseQuery } from "@tanstack/react-db";
 import { View } from "react-native";
+
 import { WALLET_CAROUSEL_CONSTANTS } from "../constant";
 import { useWalletCarousel } from "../hooks/use-wallet-carousel";
 import { CarouselCardItem } from "../types";
 import { CardItem } from "./card-item";
 import { Text } from "@/components/native/text";
+import { cardCollection } from "@/db/card/collection";
 
 const ItemSeparator = ({ gap }: { gap: number }) => (
   <View style={{ width: gap }} />
 );
 
-const cards: CarouselCardItem[] = Array.from({ length: 10 }, (_, index) => ({
-  type: "card",
-  data: {
-    id: parseSchema(cardIdSchema, crypto.randomUUID()),
-    userId: parseSchema(userIdSchema, crypto.randomUUID()),
-    name: `カード${index + 1}`,
-    image: null,
-    brand: "visa",
-    closingDay: 10,
-    paymentDay: 20,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-}));
-
 export function WalletCarousel() {
+  const { data } = useLiveSuspenseQuery((query) =>
+    query.from({ cards: cardCollection }),
+  );
+
+  const carouselItems: CarouselCardItem[] = data.map((card) => ({
+    type: "card",
+    data: card,
+  }));
+
   const { activeCard, sidePadding, scrollX, onScroll, updateIndexFromOffset } =
-    useWalletCarousel({ items: cards });
+    useWalletCarousel({ items: carouselItems });
+
+  if (carouselItems.length === 0) {
+    return (
+      <View className="flex-1 items-center justify-center py-8">
+        <Text className="text-gray-500">カードが登録されていません</Text>
+      </View>
+    );
+  }
 
   return (
     <View>
@@ -40,7 +42,7 @@ export function WalletCarousel() {
           <ItemSeparator gap={WALLET_CAROUSEL_CONSTANTS.GAP} />
         )}
         contentContainerStyle={{ paddingHorizontal: sidePadding }}
-        data={cards}
+        data={carouselItems}
         decelerationRate={0}
         estimatedItemSize={WALLET_CAROUSEL_CONSTANTS.ITEM_WIDTH}
         initialScrollIndex={WALLET_CAROUSEL_CONSTANTS.INITIAL_SCROLL_INDEX}
@@ -63,7 +65,7 @@ export function WalletCarousel() {
 
       <View className="mt-4">
         <Text bold className="text-center">
-          ここにカード詳細を表示 {activeCard?.data.name}
+          {activeCard?.data.name ?? "カードを選択してください"}
         </Text>
       </View>
     </View>
