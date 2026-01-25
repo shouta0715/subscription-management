@@ -1,17 +1,28 @@
 import { isNullish } from "@package/lib/guard";
 import { useCallback, useMemo, useState } from "react";
 import {
+  ScrollHandlerProcessed,
+  SharedValue,
   useAnimatedScrollHandler,
   useSharedValue,
 } from "react-native-reanimated";
-import { WALLET_CAROUSEL_CONSTANTS } from "../constant";
-import type { CarouselCardItem } from "../types";
 
-type UseWalletCarouselProps = {
-  items: CarouselCardItem[];
+import { WALLET_CAROUSEL_CONSTANTS } from "../constant";
+import type { PaymentMethodItem } from "@/types/payment-method";
+
+type Props = {
+  items: PaymentMethodItem[];
 };
 
-export function useWalletCarousel({ items }: UseWalletCarouselProps) {
+type Return = {
+  activeCard: PaymentMethodItem | null;
+  sidePadding: number;
+  scrollX: SharedValue<number>;
+  onScroll: ScrollHandlerProcessed;
+  updateIndexFromOffset: (offsetX: number) => void;
+};
+
+export function useWalletCarousel({ items }: Props): Return {
   const scrollX = useSharedValue(
     WALLET_CAROUSEL_CONSTANTS.INITIAL_SCROLL_INDEX *
       WALLET_CAROUSEL_CONSTANTS.ITEM_WIDTH,

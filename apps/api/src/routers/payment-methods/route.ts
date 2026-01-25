@@ -1,6 +1,6 @@
-import { parseSchema } from "@package/lib/parser";
+import { parseToArraySchema } from "@package/lib/parser";
 import { PaymentMethod, paymentMethodSchema } from "@package/model";
-import { eq } from "drizzle-orm";
+import { asc, eq } from "drizzle-orm";
 import { paymentMethod } from "@/db/schemas";
 import { factory } from "@/helpers/factory";
 
@@ -11,11 +11,15 @@ app.get("/", async (c) => {
   const paymentMethods = await c.var.db
     .select()
     .from(paymentMethod)
-    .where(eq(paymentMethod.userId, userId));
+    .where(eq(paymentMethod.userId, userId))
+    .orderBy(asc(paymentMethod.id));
 
-  return c.json<PaymentMethod[]>(
-    paymentMethods.map((pm) => parseSchema(paymentMethodSchema, pm)),
+  const parsedPaymentMethods = parseToArraySchema(
+    paymentMethodSchema,
+    paymentMethods,
   );
+
+  return c.json<PaymentMethod[]>(parsedPaymentMethods);
 });
 
 export { app as paymentMethodsRouter };

@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import Animated, {
   Extrapolation,
   interpolate,
@@ -5,18 +6,18 @@ import Animated, {
   withSpring,
   type SharedValue,
 } from "react-native-reanimated";
-
+import { withUniwind } from "uniwind";
 import { WALLET_CAROUSEL_CONSTANTS } from "../constant";
-import type { CarouselCardItem } from "../types";
-import { UserCardItem } from "./user-card-item";
 
 type CardItemProps = {
-  item: CarouselCardItem;
+  children: ReactNode;
   index: number;
   scrollX: SharedValue<number>;
 };
 
-export function CardItem({ item, index, scrollX }: CardItemProps) {
+const AnimatedView = withUniwind(Animated.View);
+
+export function CardItem({ children, index, scrollX }: CardItemProps) {
   const rStyle = useAnimatedStyle(() => {
     const x = scrollX.value / WALLET_CAROUSEL_CONSTANTS.ITEM_WIDTH;
     const dist = Math.abs(x - index);
@@ -47,10 +48,11 @@ export function CardItem({ item, index, scrollX }: CardItemProps) {
   });
 
   return (
-    <Animated.View
+    <AnimatedView
+      className="h-[190px]"
       style={[{ width: WALLET_CAROUSEL_CONSTANTS.CARD_WIDTH }, rStyle]}
     >
-      <UserCardItem card={item.data} />
-    </Animated.View>
+      {children}
+    </AnimatedView>
   );
 }
