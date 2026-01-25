@@ -13,7 +13,5 @@ export const cardCollection = createCollection(
     queryClient,
     getKey: (card) => card.id,
     schema: cardCollectionSchema,
-    gcTime: 0,
-    staleTime: 0,
   }),
 );
