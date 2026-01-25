@@ -1,4 +1,4 @@
-import { Button, ContextMenu } from "@expo/ui/swift-ui";
+import { Button, Menu } from "@expo/ui/swift-ui";
 import { ComponentPropsWithRef } from "react";
 import { match } from "ts-pattern";
 import { Uniwind, useUniwind } from "uniwind";
@@ -23,32 +23,22 @@ export const ThemeToggleContextMenu = () => {
   };
 
   return (
-    <ContextMenu>
-      <ContextMenu.Items>
-        <Button
-          systemImage={hasAdaptiveThemes ? "checkmark" : undefined}
-          onPress={() => Uniwind.setTheme("system")}
-        >
-          システム
-        </Button>
-        <Button
-          systemImage={isActiveTheme("dark") ? "checkmark" : undefined}
-          onPress={() => Uniwind.setTheme("dark")}
-        >
-          ダーク
-        </Button>
-        <Button
-          systemImage={isActiveTheme("light") ? "checkmark" : undefined}
-          onPress={() => Uniwind.setTheme("light")}
-        >
-          ライト
-        </Button>
-      </ContextMenu.Items>
-      <ContextMenu.Trigger>
-        <Button systemImage={currentThemeSystemImage(currentTheme)}>
-          外観
-        </Button>
-      </ContextMenu.Trigger>
-    </ContextMenu>
+    <Menu label="外観" systemImage={currentThemeSystemImage(currentTheme)}>
+      <Button
+        label="システム"
+        systemImage={hasAdaptiveThemes ? "checkmark" : undefined}
+        onPress={() => Uniwind.setTheme("system")}
+      />
+      <Button
+        label="ダーク"
+        systemImage={isActiveTheme("dark") ? "checkmark" : undefined}
+        onPress={() => Uniwind.setTheme("dark")}
+      />
+      <Button
+        label="ライト"
+        systemImage={isActiveTheme("light") ? "checkmark" : undefined}
+        onPress={() => Uniwind.setTheme("light")}
+      />
+    </Menu>
   );
 };
