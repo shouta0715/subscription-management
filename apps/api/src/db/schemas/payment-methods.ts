@@ -22,6 +22,7 @@ export const paymentMethod = sqliteTable(
     type: text("type", { enum: paymentMethodTypes }).notNull(),
     label: text("label").notNull(),
     cardId: text("card_id").references(() => card.id, { onDelete: "restrict" }),
+    order: integer("order").notNull().default(0),
     createdAt: integer("created_at", { mode: "timestamp_ms" })
       .default(sql`(cast(unixepoch('subsecond') * 1000 as integer))`)
       .notNull(),
@@ -37,6 +38,7 @@ export const paymentMethod = sqliteTable(
       "payment_method_card_requires_cardId",
       sql`${table.type} != 'card' OR ${table.cardId} IS NOT NULL`,
     ),
+    check("payment_method_order_check", sql`${table.order} >= 0`),
   ],
 );
 

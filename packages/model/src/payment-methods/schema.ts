@@ -11,6 +11,7 @@ const commonPaymentMethodSchema = v.object({
   userId: userIdSchema,
   label: v.pipe(v.string(), v.minLength(1)),
   cardId: v.nullable(cardIdSchema),
+  order: v.pipe(v.number(), v.integer(), v.minValue(0)),
   createdAt: timestampSchema,
   updatedAt: timestampSchema,
 });

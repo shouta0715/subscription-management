@@ -28,6 +28,7 @@ export function WalletCarousel() {
       .leftJoin({ card: cardCollection }, ({ paymentMethod, card }) =>
         eq(paymentMethod.cardId, card.id),
       )
+      .orderBy(({ paymentMethod }) => paymentMethod.order)
       .select(({ paymentMethod, card }) => ({
         ...paymentMethod,
         card,
