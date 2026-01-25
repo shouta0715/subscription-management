@@ -1,6 +1,6 @@
-import { parseSchema } from "@package/lib/parser";
+import { parseToArraySchema } from "@package/lib/parser";
 import { Card, cardSchema } from "@package/model";
-import { eq } from "drizzle-orm";
+import { asc, eq } from "drizzle-orm";
 import { card } from "@/db/schemas";
 import { factory } from "@/helpers/factory";
 
@@ -11,9 +11,12 @@ app.get("/", async (c) => {
   const cards = await c.var.db
     .select()
     .from(card)
-    .where(eq(card.userId, userId));
+    .where(eq(card.userId, userId))
+    .orderBy(asc(card.id));
 
-  return c.json<Card[]>(cards.map((c) => parseSchema(cardSchema, c)));
+  const parsedCards = parseToArraySchema(cardSchema, cards);
+
+  return c.json<Card[]>(parsedCards);
 });
 
 export { app as cardsRouter };
