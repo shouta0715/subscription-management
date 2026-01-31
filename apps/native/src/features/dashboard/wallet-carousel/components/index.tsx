@@ -15,6 +15,7 @@ import { OtherPaymentMethodCard } from "@/components/cards/other";
 import { Text } from "@/components/native/text";
 import { cardCollection } from "@/db/card/collection";
 import { paymentMethodCollection } from "@/db/payment-method/collection";
+import { SubscriptionList } from "@/features/dashboard/subscription-list/components";
 import type { PaymentMethodItem } from "@/types/payment-method";
 
 const ItemSeparator = ({ gap }: { gap: number }) => (
@@ -28,7 +29,7 @@ export function WalletCarousel() {
       .leftJoin({ card: cardCollection }, ({ paymentMethod, card }) =>
         eq(paymentMethod.cardId, card.id),
       )
-      .orderBy(({ paymentMethod }) => paymentMethod.order)
+      .orderBy(({ paymentMethod }) => paymentMethod.order, "asc")
       .select(({ paymentMethod, card }) => ({
         ...paymentMethod,
         card,
@@ -59,54 +60,61 @@ export function WalletCarousel() {
   }
 
   return (
-    <View>
-      <AnimatedLegendList
-        horizontal
-        ItemSeparatorComponent={() => (
-          <ItemSeparator gap={WALLET_CAROUSEL_CONSTANTS.GAP} />
-        )}
-        contentContainerStyle={{ paddingHorizontal: sidePadding }}
-        data={data}
-        decelerationRate={0}
-        estimatedItemSize={WALLET_CAROUSEL_CONSTANTS.ITEM_WIDTH}
-        initialScrollIndex={WALLET_CAROUSEL_CONSTANTS.INITIAL_SCROLL_INDEX}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item, index }) => (
-          <CardItem index={index} scrollX={scrollX}>
-            {match(item)
-              .with({ type: "card" }, (item) => (
-                <CardPaymentMethodCard item={item} />
-              ))
-              .with({ type: "apple" }, (item) => (
-                <ApplePaymentMethodCard item={item} />
-              ))
-              .with({ type: "google" }, (item) => (
-                <GooglePaymentMethodCard item={item} />
-              ))
-              .with({ type: "other" }, (item) => (
-                <OtherPaymentMethodCard item={item} />
-              ))
-              .exhaustive()}
-          </CardItem>
-        )}
-        scrollEventThrottle={16}
-        showsHorizontalScrollIndicator={false}
-        snapToInterval={WALLET_CAROUSEL_CONSTANTS.ITEM_WIDTH}
+    <View className="flex-1">
+      <View
+        className="mb-4 shrink-0 grow-0"
         style={{ height: WALLET_CAROUSEL_CONSTANTS.CARD_HEIGHT }}
-        onMomentumScrollEnd={(event) =>
-          updateIndexFromOffset(event.nativeEvent.contentOffset.x)
-        }
-        onScroll={onScroll}
-        onScrollEndDrag={(event) =>
-          updateIndexFromOffset(event.nativeEvent.contentOffset.x)
-        }
-      />
-
-      <View className="mt-4">
-        <Text bold className="text-center">
-          {activeCard?.label ?? "支払い方法を選択してください"}
-        </Text>
+      >
+        <AnimatedLegendList
+          horizontal
+          ItemSeparatorComponent={() => (
+            <ItemSeparator gap={WALLET_CAROUSEL_CONSTANTS.GAP} />
+          )}
+          contentContainerStyle={{ paddingHorizontal: sidePadding }}
+          data={data}
+          decelerationRate={0}
+          estimatedItemSize={WALLET_CAROUSEL_CONSTANTS.ITEM_WIDTH}
+          initialScrollIndex={WALLET_CAROUSEL_CONSTANTS.INITIAL_SCROLL_INDEX}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item, index }) => (
+            <CardItem index={index} scrollX={scrollX}>
+              {match(item)
+                .with({ type: "card" }, (item) => (
+                  <CardPaymentMethodCard item={item} />
+                ))
+                .with({ type: "apple" }, (item) => (
+                  <ApplePaymentMethodCard item={item} />
+                ))
+                .with({ type: "google" }, (item) => (
+                  <GooglePaymentMethodCard item={item} />
+                ))
+                .with({ type: "other" }, (item) => (
+                  <OtherPaymentMethodCard item={item} />
+                ))
+                .exhaustive()}
+            </CardItem>
+          )}
+          scrollEventThrottle={16}
+          showsHorizontalScrollIndicator={false}
+          snapToInterval={WALLET_CAROUSEL_CONSTANTS.ITEM_WIDTH}
+          onMomentumScrollEnd={(event) =>
+            updateIndexFromOffset(event.nativeEvent.contentOffset.x)
+          }
+          onScroll={onScroll}
+          onScrollEndDrag={(event) =>
+            updateIndexFromOffset(event.nativeEvent.contentOffset.x)
+          }
+        />
       </View>
+
+      {!isNullish(activeCard) && (
+        <View className="flex-1 px-4">
+          <View className="my-2">
+            <Text bold>サブスクリプション</Text>
+          </View>
+          <SubscriptionList paymentMethodId={activeCard.id} />
+        </View>
+      )}
     </View>
   );
 }

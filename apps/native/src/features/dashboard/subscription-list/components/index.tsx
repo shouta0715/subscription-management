@@ -15,6 +15,7 @@ import { ActiveSubscriptionItem } from "./active-subscription-item";
 import { CanceledSubscriptionItem } from "./canceled-subscription-item";
 import { Text } from "@/components/native/text";
 import { subscriptionCollection } from "@/db/subscription/collection";
+import { cn } from "@/util/cn";
 
 type SubscriptionListProps = {
   paymentMethodId: PaymentMethodId;
@@ -76,11 +77,6 @@ export function SubscriptionList({ paymentMethodId }: SubscriptionListProps) {
   return (
     <SectionList
       stickySectionHeadersEnabled
-      ListHeaderComponent={
-        <View className="my-2">
-          <Text bold>サブスクリプション</Text>
-        </View>
-      }
       contentContainerStyle={{ paddingBottom: 32 }}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) =>
@@ -105,7 +101,9 @@ export function SubscriptionList({ paymentMethodId }: SubscriptionListProps) {
         return null;
       }}
       renderSectionHeader={({ section }) => (
-        <View className="bg-background py-2">
+        <View
+          className={cn("bg-background", section.type === "canceled" && "mt-8")}
+        >
           <Text bold className="text-muted text-sm">
             {section.title}
           </Text>
