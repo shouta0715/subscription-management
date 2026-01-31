@@ -1,12 +1,18 @@
 import { View } from "react-native";
 import { Text } from "@/components/native/text";
+import { useTotalSubscriptionAmountQuery } from "@/db/subscription/query/total-amount";
 import type { CardItem } from "@/types/payment-method";
+import { formatCurrency } from "@/util/format-currency";
 
 type CardPaymentMethodCardProps = {
   item: CardItem;
 };
 
 export function CardPaymentMethodCard({ item }: CardPaymentMethodCardProps) {
+  const { data } = useTotalSubscriptionAmountQuery(item.id);
+
+  const { totalAmountMinor, totalSubscriptions } = data;
+
   return (
     <View
       className="size-full justify-between rounded-[22px] p-[18px]"
@@ -17,6 +23,11 @@ export function CardPaymentMethodCard({ item }: CardPaymentMethodCardProps) {
         <Text className="mt-1.5 text-sm uppercase text-white/85">
           {item.card.brand}
         </Text>
+        {totalSubscriptions > 0 && (
+          <Text className="mt-2 text-base font-semibold text-white">
+            {formatCurrency(totalAmountMinor, "JPY")} / 月
+          </Text>
+        )}
       </View>
 
       <View className="border-white/12 border-t pt-2.5">
@@ -33,6 +44,14 @@ export function CardPaymentMethodCard({ item }: CardPaymentMethodCardProps) {
               {item.card.paymentDay}日
             </Text>
           </View>
+          {totalSubscriptions > 0 && (
+            <View>
+              <Text className="text-xs text-white/70">サブスク</Text>
+              <Text className="mt-0.5 text-xs text-white/70">
+                {totalSubscriptions}件
+              </Text>
+            </View>
+          )}
         </View>
       </View>
     </View>
