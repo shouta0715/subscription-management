@@ -228,6 +228,13 @@ Shared utility functions:
 
 ## Git Commit Guidelines
 
+**重要: ベースブランチについて**
+
+- **このリポジトリのベースブランチは `develop` です**
+  - すべての機能ブランチは `develop` から作成してください
+  - PRは必ず `develop` ブランチに対して作成してください
+  - `main` ブランチではなく `develop` ブランチが開発の起点です
+
 **ブランチ命名規則:**
 
 - **ブランチ名の形式**: `feature/xxx` の形式を使用してください
@@ -237,11 +244,25 @@ Shared utility functions:
   - ブランチ名はケバブケース（小文字とハイフン）を使用
   - 簡潔で分かりやすい名前をつける
 
+**ブランチ作成とコミットのワークフロー:**
+
+1. **developブランチから機能ブランチを作成**
+   ```bash
+   git checkout develop
+   git pull origin develop
+   git checkout -b feature/機能名
+   ```
+
+2. **developブランチに直接コミットしない**: 必ず機能ブランチ（`feature/xxx`）を作成してからコミットしてください
+   - developブランチは保護されており、プルリクエストを通じてのみ更新します
+
+3. **PRの作成**: 機能ブランチの作業が完了したら、`develop` ブランチに対してPRを作成
+   ```bash
+   gh pr create --base develop --title "タイトル" --body "説明"
+   ```
+
 **コミット作成時の重要なルール:**
 
-- **developブランチに直接コミットしない**: 必ず機能ブランチ（`feature/xxx`）を作成してからコミットしてください
-  - コミット前に必ず `git branch feature/機能名` で新しいブランチを作成
-  - developブランチは `main` ブランチと同様に保護されており、プルリクエストを通じてのみ更新します
 - **Co-Authored-Byを追加しない**: コミットメッセージに `Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>` などのCo-Authored-By行を追加しないでください
 - **コミットの分割**: 関連性の低い変更は別々のコミットに分割してください
   - バグ修正と新機能追加は別のコミットにする
