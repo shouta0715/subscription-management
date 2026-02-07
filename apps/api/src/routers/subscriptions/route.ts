@@ -1,6 +1,6 @@
-import { parseSchema } from "@package/lib/parser";
+import { parseToArraySchema } from "@package/lib/parser";
 import { Subscription, subscriptionSchema } from "@package/model";
-import { eq } from "drizzle-orm";
+import { asc, eq } from "drizzle-orm";
 import { subscription } from "@/db/schemas";
 import { factory } from "@/helpers/factory";
 
@@ -11,11 +11,15 @@ app.get("/", async (c) => {
   const subscriptions = await c.var.db
     .select()
     .from(subscription)
-    .where(eq(subscription.userId, userId));
+    .where(eq(subscription.userId, userId))
+    .orderBy(asc(subscription.id));
 
-  return c.json<Subscription[]>(
-    subscriptions.map((sub) => parseSchema(subscriptionSchema, sub)),
+  const parsedSubscriptions = parseToArraySchema(
+    subscriptionSchema,
+    subscriptions,
   );
+
+  return c.json<Subscription[]>(parsedSubscriptions);
 });
 
 export { app as subscriptionsRouter };

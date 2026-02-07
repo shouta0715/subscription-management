@@ -3,7 +3,6 @@ import { glassEffect } from "@expo/ui/swift-ui/modifiers";
 import { Suspense } from "react";
 import { Alert, View } from "react-native";
 import { Host } from "@/components/native/host";
-import { SafeAreaView } from "@/components/native/safe-area-view";
 import { Text } from "@/components/native/text";
 import { AddButton } from "@/features/dashboard/header/components/add-button";
 import { MoreContextMenu } from "@/features/dashboard/header/components/more-context-menu";
@@ -13,7 +12,7 @@ import { WalletCarouselLoading } from "@/features/dashboard/wallet-carousel/comp
 
 function Dashboard() {
   return (
-    <SafeAreaView className="bg-background flex-1">
+    <View className="bg-background pt-safe flex-1">
       {/* ヘッダー */}
       <View className="flex-row items-center justify-between px-4 py-3">
         <Text bold className="text-2xl">
@@ -42,7 +41,7 @@ function Dashboard() {
           <WalletCarousel />
         </View>
       </Suspense>
-    </SafeAreaView>
+    </View>
   );
 }
 

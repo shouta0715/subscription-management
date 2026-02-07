@@ -148,7 +148,7 @@ const generateSubscriptions = (
 
     if (userPaymentMethods.length === 0) return [];
 
-    const subCount: number = randomInt(1, 5);
+    const subCount: number = randomInt(5, 10);
 
     return Array.from({ length: subCount }, (_: unknown, i: number) => {
       const pm: PaymentMethod = pickRandom(userPaymentMethods);
