@@ -16,14 +16,12 @@ export const MoreContextMenu = () => (
       />
     }
   >
-    {/* TODO: 設定画面に遷移する */}
-    <Link asChild href="/">
+    <Link asChild href="/setting">
       <Button label="設定" systemImage="gearshape" />
     </Link>
     <ThemeToggleContextMenu />
 
-    {/* TODO: ヘルプ画面に遷移する */}
-    <Link asChild href="/">
+    <Link asChild href="/help">
       <Button label="ヘルプ" systemImage="questionmark.circle" />
     </Link>
     <Divider />
