@@ -42,3 +42,5 @@ yarn-error.log*
 
 *storybook.log
 storybook-static/
+# heroui-agents-md
+.heroui-docs/
