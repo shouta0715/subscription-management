@@ -1,4 +1,5 @@
-import { isEmpty } from "@package/lib/guard";
+import { HStack, List, Section, Spacer, Text } from "@expo/ui/swift-ui";
+import { listStyle } from "@expo/ui/swift-ui/modifiers";
 import { PaymentMethodId } from "@package/model/payment-methods";
 import {
   ActiveSubscription,
@@ -7,28 +8,18 @@ import {
 } from "@package/model/subscriptions";
 import { eq } from "@tanstack/db";
 import { useLiveSuspenseQuery } from "@tanstack/react-db";
-import { LinearGradient } from "expo-linear-gradient";
-import { ScrollShadow } from "heroui-native";
-import React, { useMemo } from "react";
-import { SectionList, View } from "react-native";
+import React from "react";
 import { match } from "ts-pattern";
 
 import { useSubscriptionSort } from "../hooks/use-subscription-sort";
 import { ActiveSubscriptionItem } from "./active-subscription-item";
 import { CanceledSubscriptionItem } from "./canceled-subscription-item";
 import { SubscriptionSortMenu } from "./subscription-sort-menu";
-import { Text } from "@/components/native/text";
+import { Host } from "@/components/native/host";
 import { subscriptionCollection } from "@/db/subscription/collection";
-import { cn } from "@/util/cn";
 
 type SubscriptionListProps = {
   paymentMethodId: PaymentMethodId;
-};
-
-type SubscriptionSection = {
-  title: string;
-  data: (ActiveSubscription | CanceledSubscription)[];
-  type: "active" | "canceled";
 };
 
 function partitionSubscriptions(subscriptions: Subscription[]) {
@@ -78,77 +69,39 @@ export function SubscriptionList({ paymentMethodId }: SubscriptionListProps) {
   const { activeSubscriptions, canceledSubscriptions } =
     partitionSubscriptions(subscriptions);
 
-  const sections: SubscriptionSection[] = useMemo(
-    () => [
-      {
-        title: "有効",
-        data: activeSubscriptions,
-        type: "active" as const,
-      },
-      {
-        title: "無効",
-        data: canceledSubscriptions,
-        type: "canceled" as const,
-      },
-    ],
-    [activeSubscriptions, canceledSubscriptions],
-  );
-
   return (
-    <ScrollShadow
-      LinearGradientComponent={LinearGradient}
-      color="#f2f2f2"
-      size={20}
-    >
-      <SectionList
-        stickyHeaderHiddenOnScroll
-        className="p-4"
-        contentContainerStyle={{ paddingBottom: 20 }}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item, index }) =>
-          match(item)
-            .with({ status: "active" }, (activeItem) => (
-              <ActiveSubscriptionItem
-                isFirst={index === 0}
-                isLast={index === activeSubscriptions.length - 1}
-                subscription={activeItem}
-              />
-            ))
-            .with({ status: "canceled" }, (canceledItem) => (
-              <CanceledSubscriptionItem
-                isFirst={index === 0}
-                isLast={index === canceledSubscriptions.length - 1}
-                subscription={canceledItem}
-              />
-            ))
-            .exhaustive()
-        }
-        renderSectionFooter={({ section }) => {
-          if (isEmpty(section.data)) {
-            return (
-              <Text className="text-muted mt-2 text-sm" font="inter">
-                {`${section.title}なサブスクリプションがありません`}
-              </Text>
-            );
+    <Host className="flex-1">
+      <List modifiers={[listStyle("insetGrouped")]}>
+        <Section
+          header={
+            <HStack alignment="center">
+              <Text>有効</Text>
+              <Spacer />
+              <SubscriptionSortMenu />
+            </HStack>
           }
+        >
+          <List.ForEach>
+            {activeSubscriptions.map((subscription) => (
+              <ActiveSubscriptionItem
+                key={subscription.id}
+                subscription={subscription}
+              />
+            ))}
+          </List.ForEach>
+        </Section>
 
-          return null;
-        }}
-        renderSectionHeader={({ section }) => (
-          <View
-            className={cn(
-              "flex-row items-center justify-between pb-2",
-              section.type === "canceled" && "pt-4",
-            )}
-          >
-            <Text bold className="text-muted">
-              {section.title}
-            </Text>
-            {section.type === "active" && <SubscriptionSortMenu />}
-          </View>
-        )}
-        sections={sections}
-      />
-    </ScrollShadow>
+        <Section title="無効">
+          <List.ForEach>
+            {canceledSubscriptions.map((subscription) => (
+              <CanceledSubscriptionItem
+                key={subscription.id}
+                subscription={subscription}
+              />
+            ))}
+          </List.ForEach>
+        </Section>
+      </List>
+    </Host>
   );
 }
