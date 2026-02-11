@@ -7,12 +7,16 @@ import {
 } from "@package/model/subscriptions";
 import { eq } from "@tanstack/db";
 import { useLiveSuspenseQuery } from "@tanstack/react-db";
+import { LinearGradient } from "expo-linear-gradient";
+import { ScrollShadow } from "heroui-native";
 import React, { useMemo } from "react";
 import { SectionList, View } from "react-native";
 import { match } from "ts-pattern";
 
+import { useSubscriptionSort } from "../hooks/use-subscription-sort";
 import { ActiveSubscriptionItem } from "./active-subscription-item";
 import { CanceledSubscriptionItem } from "./canceled-subscription-item";
+import { SubscriptionSortMenu } from "./subscription-sort-menu";
 import { Text } from "@/components/native/text";
 import { subscriptionCollection } from "@/db/subscription/collection";
 import { cn } from "@/util/cn";
@@ -43,16 +47,32 @@ function partitionSubscriptions(subscriptions: Subscription[]) {
 }
 
 export function SubscriptionList({ paymentMethodId }: SubscriptionListProps) {
+  const { sortOrder } = useSubscriptionSort();
+
   const { data: subscriptions } = useLiveSuspenseQuery(
-    (query) =>
-      query
+    (query) => {
+      const base = query
         .from({ subscription: subscriptionCollection })
         .where(({ subscription }) =>
           eq(subscription.paymentMethodId, paymentMethodId),
-        )
-        .orderBy(({ subscription }) => subscription.billingStartDate, "desc"),
+        );
 
-    [paymentMethodId],
+      return match(sortOrder)
+        .with("nextBillingDate", () =>
+          base.orderBy(
+            ({ subscription }) => subscription.billingStartDate,
+            "asc",
+          ),
+        )
+        .with("name", () =>
+          base.orderBy(({ subscription }) => subscription.name, "asc"),
+        )
+        .with("price", () =>
+          base.orderBy(({ subscription }) => subscription.amountMinor, "desc"),
+        )
+        .exhaustive();
+    },
+    [paymentMethodId, sortOrder],
   );
 
   const { activeSubscriptions, canceledSubscriptions } =
@@ -75,41 +95,60 @@ export function SubscriptionList({ paymentMethodId }: SubscriptionListProps) {
   );
 
   return (
-    <SectionList
-      stickySectionHeadersEnabled
-      contentContainerStyle={{ paddingBottom: 32 }}
-      keyExtractor={(item) => item.id}
-      renderItem={({ item }) =>
-        match(item)
-          .with({ status: "active" }, (activeItem) => (
-            <ActiveSubscriptionItem subscription={activeItem} />
-          ))
-          .with({ status: "canceled" }, (canceledItem) => (
-            <CanceledSubscriptionItem subscription={canceledItem} />
-          ))
-          .exhaustive()
-      }
-      renderSectionFooter={({ section }) => {
-        if (isEmpty(section.data)) {
-          return (
-            <Text bold className="text-muted mt-2">
-              {`${section.title} なサブスクリプションがありません`}
-            </Text>
-          );
+    <ScrollShadow
+      LinearGradientComponent={LinearGradient}
+      color="#f2f2f2"
+      size={20}
+    >
+      <SectionList
+        stickyHeaderHiddenOnScroll
+        className="p-4"
+        contentContainerStyle={{ paddingBottom: 20 }}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item, index }) =>
+          match(item)
+            .with({ status: "active" }, (activeItem) => (
+              <ActiveSubscriptionItem
+                isFirst={index === 0}
+                isLast={index === activeSubscriptions.length - 1}
+                subscription={activeItem}
+              />
+            ))
+            .with({ status: "canceled" }, (canceledItem) => (
+              <CanceledSubscriptionItem
+                isFirst={index === 0}
+                isLast={index === canceledSubscriptions.length - 1}
+                subscription={canceledItem}
+              />
+            ))
+            .exhaustive()
         }
+        renderSectionFooter={({ section }) => {
+          if (isEmpty(section.data)) {
+            return (
+              <Text className="text-muted mt-2 text-sm" font="inter">
+                {`${section.title}なサブスクリプションがありません`}
+              </Text>
+            );
+          }
 
-        return null;
-      }}
-      renderSectionHeader={({ section }) => (
-        <View
-          className={cn("bg-background", section.type === "canceled" && "mt-8")}
-        >
-          <Text bold className="text-muted text-sm">
-            {section.title}
-          </Text>
-        </View>
-      )}
-      sections={sections}
-    />
+          return null;
+        }}
+        renderSectionHeader={({ section }) => (
+          <View
+            className={cn(
+              "flex-row items-center justify-between pb-2",
+              section.type === "canceled" && "pt-4",
+            )}
+          >
+            <Text bold className="text-muted">
+              {section.title}
+            </Text>
+            {section.type === "active" && <SubscriptionSortMenu />}
+          </View>
+        )}
+        sections={sections}
+      />
+    </ScrollShadow>
   );
 }
