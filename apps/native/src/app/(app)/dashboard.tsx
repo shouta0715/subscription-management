@@ -12,7 +12,7 @@ import { WalletCarouselLoading } from "@/features/dashboard/wallet-carousel/comp
 
 function Dashboard() {
   return (
-    <View className="bg-background pt-safe flex-1">
+    <View className="pt-safe flex-1">
       {/* ヘッダー */}
       <View className="flex-row items-center justify-between px-4 py-3">
         <Text bold className="text-2xl">
