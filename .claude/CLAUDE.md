@@ -88,6 +88,14 @@ pnpm lint:format        # Format with Prettier
 
 ## Architecture
 
+### Design (design/)
+
+**Design tool:** Pencil (https://docs.pencil.dev/)
+
+このプロジェクトでは、UI/UXデザインにPencilを使用します。デザインファイル（`.pen`形式）は`design/`ディレクトリに保存します。
+
+**重要:** `.pen`ファイルの操作には必ずPencil MCPツール（`mcp__pencil__*`）を使用してください。通常のファイル操作ツール（`Read`、`Grep`など）は使用できません。
+
 ### Native App (apps/native)
 
 **Technology stack:**
@@ -341,6 +349,10 @@ Shared utility functions:
 - `wrangler.jsonc` - Cloudflare Workers configuration (API)
 - `app.json` - Expo configuration (native)
 
+**Design files:**
+
+- `design/` - Pencil design files (.pen format)
+
 **Catalog dependencies:**
 The repository uses pnpm workspace catalog feature to manage shared dependency versions. See `pnpm-workspace.yaml` for catalog definitions.
 
@@ -351,3 +363,4 @@ The repository uses pnpm workspace catalog feature to manage shared dependency v
 - Authentication uses Better Auth with SQLite adapter, supporting passkeys
 - All validation schemas use Valibot instead of Zod
 - UI components use Hero UI Native with Uniwind (Tailwind CSS for React Native) for styling
+- UI/UX design uses Pencil design tool with .pen file format stored in `design/` directory
