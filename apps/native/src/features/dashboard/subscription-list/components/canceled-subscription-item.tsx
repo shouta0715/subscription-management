@@ -1,38 +1,67 @@
+import { Ionicons } from "@expo/vector-icons";
 import { CanceledSubscription } from "@package/model/subscriptions";
+import { Card } from "heroui-native";
 import { View } from "react-native";
+
 import { Text } from "@/components/native/text";
-import { formatBillingUnit } from "@/util/format-billing-unit";
-import { formatCurrency } from "@/util/format-currency";
+import { cn } from "@/util/cn";
+import { formatDateFull, parseDate } from "@/util/format-date-japanese";
 
 type CanceledSubscriptionItemProps = {
   subscription: CanceledSubscription;
+  isFirst: boolean;
+  isLast: boolean;
 };
 
 export function CanceledSubscriptionItem({
   subscription,
+  isFirst,
+  isLast,
 }: CanceledSubscriptionItemProps) {
+  const isCanceled =
+    subscription.canceledDate === subscription.billingEndDate ||
+    parseDate(subscription.billingEndDate) < new Date();
+
   return (
-    <View className="border-border group border-b py-3">
-      <View className="flex-row items-center justify-between">
-        {/* 左: サブスク名・情報 */}
-        <View className="flex-1">
-          <Text bold className="text-base">
-            {subscription.name}
-          </Text>
-          <View className="mt-1">
-            <Text className="text-muted text-sm">
-              {formatBillingUnit(subscription.billingUnit)}
-            </Text>
-          </View>
+    <Card
+      className={cn(
+        "rounded-none p-0",
+        isFirst && "rounded-t-2xl",
+        isLast && "rounded-b-2xl",
+      )}
+    >
+      <View className="flex-row items-center gap-3 p-4">
+        {/* ロゴ */}
+        <View className="size-12 items-center justify-center rounded-xl bg-[#F5F5F7]">
+          <Ionicons color="#000000" name="apps-outline" size={24} />
         </View>
 
-        {/* 右: 金額 */}
-        <View className="items-end">
-          <Text bold className="text-base">
-            {formatCurrency(subscription.amountMinor, subscription.currency)}
+        {/* サービス情報 */}
+        <View className="flex-1 gap-0.5">
+          <Text
+            className="text-[15px] font-medium text-[#1C1C1C]"
+            font="inter"
+            numberOfLines={1}
+          >
+            {subscription.name}
           </Text>
+          <Text className="text-xs text-[#9A9A9A]" font="inter">
+            サブスクリプション
+          </Text>
+          {isCanceled ? (
+            <Text className="text-xs text-[#8B4049]" font="inter">
+              キャンセル済み：{formatDateFull(subscription.canceledDate)}
+            </Text>
+          ) : (
+            <Text className="text-xs text-[#9A9A9A]" font="inter">
+              終了日：{formatDateFull(subscription.billingEndDate)}
+            </Text>
+          )}
         </View>
+
+        {/* 矢印アイコン */}
+        <Ionicons color="#9A9A9A" name="chevron-forward" size={18} />
       </View>
-    </View>
+    </Card>
   );
 }
