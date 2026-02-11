@@ -1,5 +1,5 @@
 import { AnimatedLegendList } from "@legendapp/list/reanimated";
-import { isNullish } from "@package/lib/guard";
+import { isEmpty, isNullish } from "@package/lib/guard";
 import { eq } from "@tanstack/db";
 import { useLiveSuspenseQuery } from "@tanstack/react-db";
 import { View } from "react-native";
@@ -51,7 +51,7 @@ export function WalletCarousel() {
   const { activeCard, sidePadding, scrollX, onScroll, updateIndexFromOffset } =
     useWalletCarousel({ items: data });
 
-  if (data.length === 0) {
+  if (isEmpty(data)) {
     return (
       <View className="flex-1 items-center justify-center py-8">
         <Text className="text-gray-500">支払い方法が登録されていません</Text>
@@ -109,9 +109,6 @@ export function WalletCarousel() {
 
       {!isNullish(activeCard) && (
         <View className="flex-1 px-4">
-          <View className="my-2">
-            <Text bold>サブスクリプション</Text>
-          </View>
           <SubscriptionList paymentMethodId={activeCard.id} />
         </View>
       )}

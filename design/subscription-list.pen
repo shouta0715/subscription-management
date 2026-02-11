@@ -64,7 +64,6 @@
               "name": "activeList",
               "width": "fill_container",
               "layout": "vertical",
-              "gap": 12,
               "children": [
                 {
                   "type": "frame",
@@ -519,7 +518,6 @@
               "name": "inactiveList",
               "width": "fill_container",
               "layout": "vertical",
-              "gap": 12,
               "children": [
                 {
                   "type": "frame",
