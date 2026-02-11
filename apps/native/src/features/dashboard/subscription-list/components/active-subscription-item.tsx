@@ -1,23 +1,25 @@
-import { Ionicons } from "@expo/vector-icons";
+import { HStack, VStack, Spacer, Image, Text } from "@expo/ui/swift-ui";
+import {
+  frame,
+  background,
+  shapes,
+  font,
+  lineLimit,
+  foregroundStyle,
+} from "@expo/ui/swift-ui/modifiers";
 import { ActiveSubscription } from "@package/model/subscriptions";
-import { Card, cn } from "heroui-native";
-import { View } from "react-native";
 
-import { Text } from "@/components/native/text";
+import React from "react";
 import { formatBillingUnit } from "@/util/format-billing-unit";
 import { formatCurrency } from "@/util/format-currency";
 import { getNextBillingDate } from "@/util/get-next-billing-date";
 
 type ActiveSubscriptionItemProps = {
   subscription: ActiveSubscription;
-  isFirst: boolean;
-  isLast: boolean;
 };
 
 export function ActiveSubscriptionItem({
   subscription,
-  isFirst,
-  isLast,
 }: ActiveSubscriptionItemProps) {
   const nextBillingDate = getNextBillingDate(
     subscription.billingStartDate,
@@ -25,44 +27,48 @@ export function ActiveSubscriptionItem({
   );
 
   return (
-    <Card
-      className={cn(
-        "rounded-none p-0",
-        isFirst && "rounded-t-2xl",
-        isLast && "rounded-b-2xl",
-      )}
-    >
-      <View className="flex-row items-center gap-3 p-4">
-        {/* ロゴ */}
-        <View className="size-12 items-center justify-center rounded-xl bg-[#F5F5F7]">
-          <Ionicons color="#000000" name="apps-outline" size={24} />
-        </View>
+    <HStack key={subscription.id} spacing={12}>
+      {/* ロゴ */}
+      <VStack
+        modifiers={[
+          frame({ width: 48, height: 48, alignment: "center" }),
+          background("#F5F5F7", shapes.roundedRectangle({ cornerRadius: 12 })),
+        ]}
+      >
+        <Image size={24} systemName="apple.homekit" />
+      </VStack>
 
-        {/* サービス情報 */}
-        <View className="flex-1 gap-0.5">
-          <Text
-            className="text-[15px] font-medium text-[#1C1C1C]"
-            font="inter"
-            numberOfLines={1}
-          >
-            {subscription.name}
-          </Text>
-          <Text className="text-xs text-[#9A9A9A]" font="inter">
-            {formatBillingUnit(subscription.billingUnit)}
-          </Text>
-          <Text className="text-xs text-[#9A9A9A]" font="inter">
-            {nextBillingDate}
-          </Text>
-        </View>
+      {/* サービス情報 */}
+      <VStack alignment="leading" spacing={2}>
+        <Text modifiers={[font({ size: 15, weight: "medium" }), lineLimit(1)]}>
+          {subscription.name}
+        </Text>
+        <Text
+          modifiers={[
+            font({ size: 14 }),
+            foregroundStyle({ type: "color", color: "#9A9A9A" }),
+          ]}
+        >
+          {formatBillingUnit(subscription.billingUnit)}
+        </Text>
+        <Text
+          modifiers={[
+            font({ size: 14 }),
+            foregroundStyle({ type: "color", color: "#9A9A9A" }),
+          ]}
+        >
+          {nextBillingDate}
+        </Text>
+      </VStack>
 
-        {/* 金額と矢印 */}
-        <View className="flex-row items-center gap-1">
-          <Text className="text-[15px] font-medium text-[#1C1C1C]" font="inter">
-            {formatCurrency(subscription.amountMinor, subscription.currency)}
-          </Text>
-          <Ionicons color="#9A9A9A" name="chevron-forward" size={18} />
-        </View>
-      </View>
-    </Card>
+      <Spacer />
+      {/* 金額 */}
+      <HStack spacing={8}>
+        <Text modifiers={[font({ size: 15, weight: "medium" })]}>
+          {formatCurrency(subscription.amountMinor, subscription.currency)}
+        </Text>
+        <Image color="#9A9A9A" size={18} systemName="chevron.right" />
+      </HStack>
+    </HStack>
   );
 }
