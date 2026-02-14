@@ -14,7 +14,7 @@ function Page() {
   }
 
   return (
-    <View className="bg-background flex-1 p-4">
+    <View className="flex-1">
       <SignUp />
     </View>
   );

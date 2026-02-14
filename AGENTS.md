@@ -2,10 +2,6 @@
 
 This file provides guidance for contributors when working with code in this repository.
 
-<!-- HEROUI-NATIVE-AGENTS-MD-START -->
-[HeroUI Native Docs Index]|root: ./.heroui-docs/native|STOP. What you remember about HeroUI Native is WRONG for this project. Always search docs and read before any task.|If docs missing, run this command first: heroui agents-md --native --output CLAUDE.md|components/(buttons):{button.mdx,close-button.mdx}|components/(data-display):{chip.mdx}|components/(feedback):{skeleton-group.mdx,skeleton.mdx,spinner.mdx}|components/(forms):{checkbox.mdx,control-field.mdx,description.mdx,field-error.mdx,input-otp.mdx,input.mdx,label.mdx,radio-group.mdx,select.mdx,switch.mdx,text-area.mdx,text-field.mdx}|components/(layout):{card.mdx,separator.mdx,surface.mdx}|components/(media):{avatar.mdx}|components/(navigation):{accordion.mdx,tabs.mdx}|components/(overlays):{bottom-sheet.mdx,dialog.mdx,popover.mdx,toast.mdx}|components/(utilities):{pressable-feedback.mdx,scroll-shadow.mdx}|getting-started/(handbook):{animation.mdx,colors.mdx,composition.mdx,portal.mdx,provider.mdx,styling.mdx,theming.mdx}|getting-started/(overview):{design-principles.mdx,quick-start.mdx}|getting-started/(ui-for-agents):{agent-skills.mdx,agents-md.mdx,llms-txt.mdx,mcp-server.mdx}|releases:{beta-10.mdx,beta-11.mdx,beta-12.mdx,beta-13.mdx}
-<!-- HEROUI-NATIVE-AGENTS-MD-END -->
-
 ## Language Preference
 
 **このリポジトリでは、すべてのやり取りを日本語で行ってください。**
@@ -103,7 +99,8 @@ pnpm lint:format        # Format with Prettier
 - React Native 0.81 with Expo SDK 54
 - Expo Router for file-based routing with typed routes
 - React 19 with React Compiler enabled
-- Hero UI Native for UI components and Uniwind (Tailwind CSS for React Native) for styling
+- Expo UI for UI components
+- Uniwind (Tailwind CSS for React Native) for styling
 - Better Auth for authentication with passkey support
 - TanStack Query for data fetching and caching
 - React Hook Form + Valibot for form validation
@@ -111,17 +108,11 @@ pnpm lint:format        # Format with Prettier
 **Expo-specific guidelines:**
 
 - **ALWAYS use Expo components when available** - Prefer Expo's optimized components over React Native equivalents
-- **UI Components:** Use Hero UI Native (`heroui-native`) for all UI components
-  - Reference: https://v3.heroui.com/docs/native
-  - Use Hero UI Native components for native iOS/Android experiences
-  - Available components: Button, Card, Input, TextField, Tabs, Avatar, Chip, Switch, Checkbox, etc.
-  - Components follow compound component pattern (e.g., `Button.StartContent`, `Button.LabelContent`)
-  - Refer to the Hero UI Native documentation for all component APIs and props
+- **UI Components:** Use Expo UI for all UI components
 - **Styling:** Use Uniwind (Tailwind CSS for React Native) for all styling needs
   - Uniwind is Tailwind CSS v4 designed specifically for React Native
   - Use Tailwind utility classes via the `className` prop on React Native components
   - Supports responsive design, dark mode, and custom themes
-  - Reference: Hero UI Native theming and styling documentation
 - **Images:** Use `expo-image` (NOT `react-native`'s Image component) for all image rendering
 - **Theme detection:** Use React Native's `useColorScheme()` hook for theme detection
 - **File-based routing:** All navigation uses Expo Router's file-based system in `src/app/`
@@ -146,13 +137,11 @@ The app uses route guards in `_layout.tsx` to control navigation:
 3. Authenticated users with completed onboarding see `(authenticated)` routes
 
 **Styling:**
-- Uses Hero UI Native components for UI elements
 - Uses Uniwind (Tailwind CSS for React Native) for all styling
 - Apply Tailwind utility classes via the `className` prop
 - Follow mobile-first responsive design patterns
 - Use Tailwind's built-in utilities for spacing, colors, typography, etc.
-- Leverage Hero UI Native's semantic color system (e.g., `accent`, `success`, `danger`)
-- Refer to Hero UI Native and Uniwind documentation for available utilities and component styling
+- Refer to Uniwind documentation for available utilities and component styling
 
 **Coding guidelines:**
 
@@ -362,5 +351,4 @@ The repository uses pnpm workspace catalog feature to manage shared dependency v
 - API runs on Cloudflare Workers with Node.js compatibility mode enabled
 - Authentication uses Better Auth with SQLite adapter, supporting passkeys
 - All validation schemas use Valibot instead of Zod
-- UI components use Hero UI Native with Uniwind (Tailwind CSS for React Native) for styling
 - UI/UX design uses Pencil design tool with .pen file format stored in `design/` directory

@@ -1,27 +1,18 @@
-import { Button, ButtonLabel } from "../button";
+import { Button, HStack, Text, VStack } from "@expo/ui/swift-ui";
+import { frame, labelStyle } from "@expo/ui/swift-ui/modifiers";
 import { GoogleIcon } from "../icon/google";
 import { OAuthButtonProps } from "./types";
 
 export const GoogleAuthButton = ({
   onPress,
-  isPending,
-  isDisabled,
-  ...props
+  label = "Continue with Google",
 }: OAuthButtonProps) => (
-  <Button
-    className="h-[44px] w-[300px] items-center justify-center rounded-full border border-[#747775] bg-[#FFFFFF] dark:border-[#8E918F] dark:bg-[#131314]"
-    isDisabled={isPending || isDisabled}
-    pressableFeedbackVariant="none"
-    onPress={onPress}
-    {...props}
-  >
-    <GoogleIcon />
-    <ButtonLabel
-      bold
-      className="text-[#1F1F1F] dark:text-[#E3E3E3]"
-      font="inter"
-    >
-      Continue with Google
-    </ButtonLabel>
+  <Button modifiers={[labelStyle("titleAndIcon")]} onPress={onPress}>
+    <HStack spacing={4}>
+      <VStack modifiers={[frame({ width: 20, height: 20 })]}>
+        <GoogleIcon />
+      </VStack>
+      <Text>{label}</Text>
+    </HStack>
   </Button>
 );

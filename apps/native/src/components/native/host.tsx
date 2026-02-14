@@ -1,5 +1,12 @@
 /* eslint-disable no-restricted-imports */
 import { Host as ExpoHost } from "@expo/ui/swift-ui";
-import { withUniwind } from "uniwind";
+import { ComponentPropsWithRef } from "react";
+import { useUniwind, withUniwind } from "uniwind";
 
-export const Host = withUniwind(ExpoHost);
+type Props = ComponentPropsWithRef<typeof ExpoHost>;
+const ThemeHost = (props: Props) => {
+  const { theme } = useUniwind();
+
+  return <ExpoHost colorScheme={theme} {...props} />;
+};
+export const Host = withUniwind(ThemeHost);
