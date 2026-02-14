@@ -17,11 +17,10 @@
     "auth:generate": "pnpx @better-auth/cli@latest generate --config ./better-auth.config.ts --output ./src/db/schemas/users.ts"
   },
   "dependencies": {
-    "@better-auth/expo": "^1.4.9",
     "@better-auth/passkey": "^1.4.9",
     "@libsql/client": "^0.15.15",
-    "@package/model": "workspace:*",
     "@package/lib": "workspace:*",
+    "@package/model": "workspace:*",
     "better-auth": "^1.4.9",
     "drizzle-orm": "^0.45.1",
     "hono": "^4.9.0",
