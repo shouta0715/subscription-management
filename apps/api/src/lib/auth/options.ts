@@ -1,4 +1,3 @@
-import { expo } from "@better-auth/expo";
 import { passkey } from "@better-auth/passkey";
 import { BetterAuthOptions } from "better-auth";
 import { anonymous } from "better-auth/plugins";
@@ -50,7 +49,6 @@ export const betterAuthOptions = (
   plugins: [
     passkey(),
     /** @see https://github.com/better-auth/better-auth/issues/5568 */
-    expo({ disableOriginOverride: true }),
     anonymous(),
   ],
   advanced: {
