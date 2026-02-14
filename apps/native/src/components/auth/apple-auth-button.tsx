@@ -1,28 +1,18 @@
-import { Button, ButtonLabel } from "../button";
+import { Button, HStack, Text, VStack } from "@expo/ui/swift-ui";
+import { labelStyle, frame } from "@expo/ui/swift-ui/modifiers";
 import { AppleIcon } from "../icon/apple";
 import { OAuthButtonProps } from "./types";
 
 export const AppleAuthButton = ({
   onPress,
-  isPending,
-  isDisabled,
-  ...props
+  label = "Continue with Apple",
 }: OAuthButtonProps) => (
-  <Button
-    className="h-[44px] w-[300px] items-center justify-center rounded-full border bg-black dark:bg-white"
-    isDisabled={isPending || isDisabled}
-    pressableFeedbackVariant="none"
-    variant="ghost"
-    onPress={onPress}
-    {...props}
-  >
-    <AppleIcon aria-label="Apple" />
-    <ButtonLabel
-      bold
-      className="-ml-2.5 text-white dark:text-black"
-      font="inter"
-    >
-      Continue with Apple
-    </ButtonLabel>
+  <Button modifiers={[labelStyle("titleAndIcon")]} onPress={onPress}>
+    <HStack spacing={4}>
+      <VStack modifiers={[frame({ width: 20, height: 20 })]}>
+        <AppleIcon aria-label="Apple" />
+      </VStack>
+      <Text>{label}</Text>
+    </HStack>
   </Button>
 );

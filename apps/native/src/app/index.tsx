@@ -1,7 +1,9 @@
+import { Button, VStack } from "@expo/ui/swift-ui";
 import { isNullish } from "@package/lib/guard";
 import { Link, Redirect } from "expo-router";
-import { View } from "react-native";
-import { Button, ButtonLabel } from "@/components/button";
+import React from "react";
+import { Host } from "@/components/native/host";
+import { SafeAreaView } from "@/components/native/safe-area-view";
 import { useSession } from "@/lib/auth-client";
 
 function Page() {
@@ -13,18 +15,19 @@ function Page() {
   }
 
   return (
-    <View className="flex-1 items-center justify-center">
-      <Link asChild href="/sign-up">
-        <Button size="sm" variant="primary">
-          <ButtonLabel bold>新しくはじめる</ButtonLabel>
-        </Button>
-      </Link>
-      <Link asChild href="/sign-in">
-        <Button size="sm" variant="secondary">
-          <ButtonLabel bold>既存のアカウントでログイン</ButtonLabel>
-        </Button>
-      </Link>
-    </View>
+    <SafeAreaView className="flex-1">
+      <Host className="flex-1">
+        <VStack spacing={4}>
+          <Link asChild href="/sign-up">
+            <Button label="新しくはじめる" />
+          </Link>
+
+          <Link asChild href="/sign-in">
+            <Button label="既存のアカウントでログイン" />
+          </Link>
+        </VStack>
+      </Host>
+    </SafeAreaView>
   );
 }
 
