@@ -1,5 +1,13 @@
-import { HStack, List, Section, Spacer, Text } from "@expo/ui/swift-ui";
+import {
+  ContentUnavailableView,
+  HStack,
+  List,
+  Section,
+  Spacer,
+  Text,
+} from "@expo/ui/swift-ui";
 import { listStyle } from "@expo/ui/swift-ui/modifiers";
+import { isEmpty } from "@package/lib/guard";
 import { PaymentMethodId } from "@package/model/payment-methods";
 import {
   ActiveSubscription,
@@ -81,25 +89,33 @@ export function SubscriptionList({ paymentMethodId }: SubscriptionListProps) {
             </HStack>
           }
         >
-          <List.ForEach>
-            {activeSubscriptions.map((subscription) => (
-              <ActiveSubscriptionItem
-                key={subscription.id}
-                subscription={subscription}
-              />
-            ))}
-          </List.ForEach>
+          {isEmpty(activeSubscriptions) ? (
+            <ContentUnavailableView description="有効なサブスクリプションはありません" />
+          ) : (
+            <List.ForEach>
+              {activeSubscriptions.map((subscription) => (
+                <ActiveSubscriptionItem
+                  key={subscription.id}
+                  subscription={subscription}
+                />
+              ))}
+            </List.ForEach>
+          )}
         </Section>
 
         <Section title="無効">
-          <List.ForEach>
-            {canceledSubscriptions.map((subscription) => (
-              <CanceledSubscriptionItem
-                key={subscription.id}
-                subscription={subscription}
-              />
-            ))}
-          </List.ForEach>
+          {isEmpty(canceledSubscriptions) ? (
+            <ContentUnavailableView description="無効なサブスクリプションはありません" />
+          ) : (
+            <List.ForEach>
+              {canceledSubscriptions.map((subscription) => (
+                <CanceledSubscriptionItem
+                  key={subscription.id}
+                  subscription={subscription}
+                />
+              ))}
+            </List.ForEach>
+          )}
         </Section>
       </List>
     </Host>
