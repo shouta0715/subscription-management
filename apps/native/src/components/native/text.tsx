@@ -1,8 +1,8 @@
 /* eslint-disable no-restricted-imports */
-import { cn } from "heroui-native";
 import { ComponentProps } from "react";
 import { Text as NativeText } from "react-native";
 import { FontVariantProps, fontStyle } from "../font/style";
+import { cn } from "@/util/cn";
 
 type Props = ComponentProps<typeof NativeText> & FontVariantProps;
 

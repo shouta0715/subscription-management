@@ -1,4 +1,3 @@
-import { HeroUINativeProvider } from "heroui-native";
 import React from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaListener } from "react-native-safe-area-context";
@@ -14,9 +13,7 @@ export const Providers = ({ children }: { children: React.ReactNode }) => (
       }}
     >
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <HeroUINativeProvider>
-          <SplashScreenProvider>{children}</SplashScreenProvider>
-        </HeroUINativeProvider>
+        <SplashScreenProvider>{children}</SplashScreenProvider>
       </GestureHandlerRootView>
     </SafeAreaListener>
   </TanstackQueryClientProvider>
