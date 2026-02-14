@@ -135,47 +135,43 @@ const createCanceledSubscription = (
 };
 
 const generateSubscriptions = (
-  users: User[],
+  user: User,
   paymentMethods: PaymentMethod[],
 ): Subscription[] => {
   const now: Date = new Date();
 
-  const subscriptions: Subscription[][] = users.map((user: User) => {
-    const userId: UserId = parseSchema(userIdSchema, user.id);
-    const userPaymentMethods: PaymentMethod[] = paymentMethods.filter(
-      (pm: PaymentMethod) => pm.userId === userId,
+  const userId: UserId = parseSchema(userIdSchema, user.id);
+  const userPaymentMethods: PaymentMethod[] = paymentMethods.filter(
+    (pm: PaymentMethod) => pm.userId === userId,
+  );
+
+  if (userPaymentMethods.length === 0) return [];
+
+  const subCount: number = randomInt(12, 20);
+
+  return Array.from({ length: subCount }, (_: unknown, i: number) => {
+    const pm: PaymentMethod = pickRandom(userPaymentMethods);
+    const paymentMethodId: PaymentMethodId = parseSchema(
+      paymentMethodIdSchema,
+      pm.id,
     );
+    const status: SubscriptionStatus = pickRandom(subscriptionStatuses);
 
-    if (userPaymentMethods.length === 0) return [];
-
-    const subCount: number = randomInt(5, 10);
-
-    return Array.from({ length: subCount }, (_: unknown, i: number) => {
-      const pm: PaymentMethod = pickRandom(userPaymentMethods);
-      const paymentMethodId: PaymentMethodId = parseSchema(
-        paymentMethodIdSchema,
-        pm.id,
-      );
-      const status: SubscriptionStatus = pickRandom(subscriptionStatuses);
-
-      return status === "active"
-        ? createActiveSubscription(userId, paymentMethodId, i, now)
-        : createCanceledSubscription(userId, paymentMethodId, i, now);
-    });
+    return status === "active"
+      ? createActiveSubscription(userId, paymentMethodId, i, now)
+      : createCanceledSubscription(userId, paymentMethodId, i, now);
   });
-
-  return subscriptions.flat();
 };
 
 export const seedSubscriptions = async (
   db: SeedDBOrTX,
-  users: User[],
+  user: User,
   paymentMethods: PaymentMethod[],
 ): Promise<Subscription[]> => {
   console.log("🌱 Seeding subscriptions...");
 
   const subscriptions: Subscription[] = generateSubscriptions(
-    users,
+    user,
     paymentMethods,
   );
 

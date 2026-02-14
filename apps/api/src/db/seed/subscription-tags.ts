@@ -49,25 +49,23 @@ const randomInt = (min: number, max: number): number =>
 const shuffle = <T>(arr: readonly T[]): T[] =>
   [...arr].sort(() => Math.random() - 0.5);
 
-const generateSubscriptionTags = (users: User[]): SubscriptionTag[] => {
+const generateSubscriptionTags = (user: User): SubscriptionTag[] => {
   const now = new Date();
 
-  return users.flatMap((user) => {
-    const userId = parseSchema(userIdSchema, user.id);
-    const tagCount = randomInt(2, 6);
-    const selectedLabels = shuffle(tagLabels).slice(0, tagCount);
+  const userId = parseSchema(userIdSchema, user.id);
+  const tagCount = randomInt(2, 6);
+  const selectedLabels = shuffle(tagLabels).slice(0, tagCount);
 
-    return selectedLabels.map((label) =>
-      parseSchema(subscriptionTagSchema, {
-        id: parseSchema(subscriptionTagIdSchema, crypto.randomUUID()),
-        userId,
-        label,
-        colorToken: pickRandom(subscriptionTagColorTokens),
-        createdAt: now,
-        updatedAt: now,
-      } satisfies SubscriptionTag),
-    );
-  });
+  return selectedLabels.map((label) =>
+    parseSchema(subscriptionTagSchema, {
+      id: parseSchema(subscriptionTagIdSchema, crypto.randomUUID()),
+      userId,
+      label,
+      colorToken: pickRandom(subscriptionTagColorTokens),
+      createdAt: now,
+      updatedAt: now,
+    } satisfies SubscriptionTag),
+  );
 };
 
 const generateSubscriptionTagAssignments = (
@@ -95,12 +93,12 @@ const generateSubscriptionTagAssignments = (
 
 export const seedSubscriptionTags = async (
   db: SeedDBOrTX,
-  users: User[],
+  user: User,
   subscriptions: Subscription[],
 ): Promise<SubscriptionTag[]> => {
   console.log("🌱 Seeding subscription tags...");
 
-  const tagsData = generateSubscriptionTags(users);
+  const tagsData = generateSubscriptionTags(user);
 
   if (tagsData.length > 0) {
     await db.insert(subscriptionTag).values(tagsData);

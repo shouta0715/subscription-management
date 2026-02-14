@@ -17,38 +17,34 @@ const randomInt = (min: number, max: number): number =>
 const pickRandom = <T>(arr: readonly T[]): T =>
   arr[Math.floor(Math.random() * arr.length)] as T;
 
-const generateCards = (users: User[]): Card[] => {
+const generateCards = (user: User): Card[] => {
   const now = new Date();
 
-  return users
-    .map((user, userIndex) => {
-      const cardCount = randomInt(0, 5);
-      const userId = parseSchema(userIdSchema, user.id);
+  const cardCount = randomInt(0, 5);
+  const userId = parseSchema(userIdSchema, user.id);
 
-      return Array.from({ length: cardCount }, (_, i) =>
-        parseSchema(cardSchema, {
-          id: parseSchema(cardIdSchema, crypto.randomUUID()),
-          userId,
-          name: `カード${userIndex + 1}-${i + 1}`,
-          image: null,
-          brand: pickRandom(cardBrands),
-          closingDay: randomInt(1, 28),
-          paymentDay: randomInt(1, 28),
-          createdAt: now,
-          updatedAt: now,
-        } satisfies Card),
-      );
-    })
-    .flat();
+  return Array.from({ length: cardCount }, (_, i) =>
+    parseSchema(cardSchema, {
+      id: parseSchema(cardIdSchema, crypto.randomUUID()),
+      userId,
+      name: `カード${i + 1}`,
+      image: null,
+      brand: pickRandom(cardBrands),
+      closingDay: randomInt(1, 28),
+      paymentDay: randomInt(1, 28),
+      createdAt: now,
+      updatedAt: now,
+    } satisfies Card),
+  );
 };
 
 export const seedCards = async (
   db: SeedDBOrTX,
-  users: User[],
+  user: User,
 ): Promise<Card[]> => {
   console.log("🌱 Seeding cards...");
 
-  const cardsData = generateCards(users);
+  const cardsData = generateCards(user);
 
   if (cardsData.length > 0) {
     await db.insert(card).values(cardsData);
