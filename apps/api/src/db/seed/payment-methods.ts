@@ -16,57 +16,50 @@ import { paymentMethod } from "@/db/schemas/payment-methods";
 
 const otherTypes = paymentMethodTypes.filter((type) => type !== "card");
 
-const generatePaymentMethods = (
-  users: User[],
-  cards: Card[],
-): PaymentMethod[] => {
+const generatePaymentMethods = (user: User, cards: Card[]): PaymentMethod[] => {
   const now = new Date();
 
-  const methods = users.map((user, userIndex) => {
-    const userId = parseSchema(userIdSchema, user.id);
-    const userCards = cards.filter((card) => card.userId === userId);
+  const userId = parseSchema(userIdSchema, user.id);
+  const userCards = cards.filter((card) => card.userId === userId);
 
-    const cardMethods = userCards.map((card, cardIndex) =>
-      parseSchema(cardPaymentMethodSchema, {
-        id: parseSchema(paymentMethodIdSchema, crypto.randomUUID()),
-        userId,
-        type: "card",
-        label: `カード支払い${userIndex * 3 + cardIndex + 1}`,
-        cardId: card.id,
-        order: cardIndex,
-        createdAt: now,
-        updatedAt: now,
-      } satisfies CardPaymentMethod),
-    );
+  const cardMethods = userCards.map((card, cardIndex) =>
+    parseSchema(cardPaymentMethodSchema, {
+      id: parseSchema(paymentMethodIdSchema, crypto.randomUUID()),
+      userId,
+      type: "card",
+      label: `カード支払い${cardIndex + 1}`,
+      cardId: card.id,
+      order: cardIndex,
+      createdAt: now,
+      updatedAt: now,
+    } satisfies CardPaymentMethod),
+  );
 
-    const addOtherCount = Math.floor(Math.random() * 2);
-    const otherMethods = Array.from({ length: addOtherCount }, (_, i) =>
-      parseSchema(paymentMethodSchema, {
-        id: parseSchema(paymentMethodIdSchema, crypto.randomUUID()),
-        userId,
-        type: otherTypes[i % otherTypes.length] ?? "other",
-        label: `${otherTypes[i % otherTypes.length] ?? "other"}支払い`,
-        cardId: null,
-        order: cardMethods.length + i,
-        createdAt: now,
-        updatedAt: now,
-      } satisfies PaymentMethod),
-    );
+  const addOtherCount = Math.floor(Math.random() * 2);
+  const otherMethods = Array.from({ length: addOtherCount }, (_, i) =>
+    parseSchema(paymentMethodSchema, {
+      id: parseSchema(paymentMethodIdSchema, crypto.randomUUID()),
+      userId,
+      type: otherTypes[i % otherTypes.length] ?? "other",
+      label: `${otherTypes[i % otherTypes.length] ?? "other"}支払い`,
+      cardId: null,
+      order: cardMethods.length + i,
+      createdAt: now,
+      updatedAt: now,
+    } satisfies PaymentMethod),
+  );
 
-    return [...cardMethods, ...otherMethods];
-  });
-
-  return methods.flat();
+  return [...cardMethods, ...otherMethods];
 };
 
 export const seedPaymentMethods = async (
   db: SeedDBOrTX,
-  users: User[],
+  user: User,
   cards: Card[],
 ): Promise<PaymentMethod[]> => {
   console.log("🌱 Seeding payment methods...");
 
-  const paymentMethods = generatePaymentMethods(users, cards);
+  const paymentMethods = generatePaymentMethods(user, cards);
 
   await db.insert(paymentMethod).values(paymentMethods);
 
