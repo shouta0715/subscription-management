@@ -1,13 +1,8 @@
-import {
-  Button,
-  HStack,
-  Image,
-  Menu,
-  Text as SwiftUIText,
-} from "@expo/ui/swift-ui";
+import { Button, HStack, Image, Menu } from "@expo/ui/swift-ui";
 import { controlSize, frame } from "@expo/ui/swift-ui/modifiers";
 
 import { useSubscriptionSort } from "../hooks/use-subscription-sort";
+import { Text } from "@/components/native/text";
 
 export function SubscriptionSortMenu() {
   const { isActiveSortOrder, setSortOrder } = useSubscriptionSort();
@@ -22,7 +17,7 @@ export function SubscriptionSortMenu() {
           ]}
         >
           <HStack spacing={2}>
-            <SwiftUIText>並び替え</SwiftUIText>
+            <Text type="swift">並び替え</Text>
             <Image size={14} systemName="arrow.up.arrow.down" />
           </HStack>
         </Button>

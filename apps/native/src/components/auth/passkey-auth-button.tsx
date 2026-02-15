@@ -1,7 +1,8 @@
-import { Button, HStack, Text, VStack } from "@expo/ui/swift-ui";
+import { Button, HStack, VStack } from "@expo/ui/swift-ui";
 import { frame, labelStyle } from "@expo/ui/swift-ui/modifiers";
 import { PasskeyIcon } from "../icon/passkey";
 import { OAuthButtonProps } from "./types";
+import { Text } from "@/components/native/text";
 
 type Props = OAuthButtonProps & {
   label?: string;
@@ -16,7 +17,7 @@ export const PasskeyAuthButton = ({
       <VStack modifiers={[frame({ width: 20, height: 20 })]}>
         <PasskeyIcon aria-label="Passkey" />
       </VStack>
-      <Text>{label}</Text>
+      <Text type="swift">{label}</Text>
     </HStack>
   </Button>
 );

@@ -1,11 +1,4 @@
-import {
-  Button,
-  Divider,
-  HStack,
-  Text,
-  VStack,
-  ZStack,
-} from "@expo/ui/swift-ui";
+import { Button, Divider, HStack, VStack, ZStack } from "@expo/ui/swift-ui";
 import { labelStyle } from "@expo/ui/swift-ui/modifiers";
 import { isNullish } from "@package/lib/guard";
 import { Link, useRouter } from "expo-router";
@@ -14,6 +7,7 @@ import { AppleAuthButton } from "@/components/auth/apple-auth-button";
 import { GoogleAuthButton } from "@/components/auth/google-auth-button";
 import { PasskeyAuthButton } from "@/components/auth/passkey-auth-button";
 import { Host } from "@/components/native/host";
+import { Text } from "@/components/native/text";
 import { useSignInAnonymous } from "@/hooks/auth/use-sign-in-anonymous";
 import { useSession } from "@/lib/auth-client";
 
@@ -46,14 +40,14 @@ export function SignUp() {
             modifiers={[labelStyle("titleAndIcon")]}
             onPress={handleSignInAnonymous}
           >
-            <Text>ゲストアカウントで続ける</Text>
+            <Text type="swift">ゲストアカウントで続ける</Text>
           </Button>
-          <Text>後から引き継ぎ・連携できます</Text>
+          <Text type="swift">後から引き継ぎ・連携できます</Text>
         </VStack>
 
         <ZStack>
           <Divider />
-          <Text>or</Text>
+          <Text type="swift">or</Text>
           <Divider />
         </ZStack>
 
@@ -65,7 +59,7 @@ export function SignUp() {
 
         <HStack spacing={2}>
           <Link asChild href="/sign-in">
-            <Text>すでにアカウントをお持ちの方はこちら</Text>
+            <Text type="swift">すでにアカウントをお持ちの方はこちら</Text>
           </Link>
         </HStack>
       </VStack>
