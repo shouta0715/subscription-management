@@ -2,6 +2,7 @@ import { HStack } from "@expo/ui/swift-ui";
 import { glassEffect } from "@expo/ui/swift-ui/modifiers";
 import { Suspense } from "react";
 import { Alert, View } from "react-native";
+import { PageContainer } from "@/components/container/page-container";
 import { Host } from "@/components/native/host";
 import { Text } from "@/components/native/text";
 import { AddButton } from "@/features/dashboard/header/components/add-button";
@@ -12,7 +13,7 @@ import { WalletCarouselLoading } from "@/features/dashboard/wallet-carousel/comp
 
 function Dashboard() {
   return (
-    <View className="pt-safe flex-1">
+    <PageContainer className="pt-safe">
       {/* ヘッダー */}
       <View className="flex-row items-center justify-between px-4 py-3">
         <Text bold className="text-2xl">
@@ -41,7 +42,7 @@ function Dashboard() {
           <WalletCarousel />
         </View>
       </Suspense>
-    </View>
+    </PageContainer>
   );
 }
 
