@@ -4,7 +4,6 @@ import {
   List,
   Section,
   Spacer,
-  Text,
 } from "@expo/ui/swift-ui";
 import { listStyle } from "@expo/ui/swift-ui/modifiers";
 import { isEmpty } from "@package/lib/guard";
@@ -24,6 +23,7 @@ import { ActiveSubscriptionItem } from "./active-subscription-item";
 import { CanceledSubscriptionItem } from "./canceled-subscription-item";
 import { SubscriptionSortMenu } from "./subscription-sort-menu";
 import { Host } from "@/components/native/host";
+import { Text } from "@/components/native/text";
 import { subscriptionCollection } from "@/db/subscription/collection";
 
 type SubscriptionListProps = {
@@ -83,7 +83,7 @@ export function SubscriptionList({ paymentMethodId }: SubscriptionListProps) {
         <Section
           header={
             <HStack alignment="center">
-              <Text>有効</Text>
+              <Text type="swift">有効</Text>
               <Spacer />
               <SubscriptionSortMenu />
             </HStack>

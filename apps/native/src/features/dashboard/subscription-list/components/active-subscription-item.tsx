@@ -1,4 +1,4 @@
-import { HStack, VStack, Spacer, Image, Text } from "@expo/ui/swift-ui";
+import { HStack, VStack, Spacer, Image } from "@expo/ui/swift-ui";
 import {
   frame,
   background,
@@ -10,6 +10,7 @@ import {
 import { ActiveSubscription } from "@package/model/subscriptions";
 
 import React from "react";
+import { Text } from "@/components/native/text";
 import { formatBillingUnit } from "@/util/format-billing-unit";
 import { formatCurrency } from "@/util/format-currency";
 import { getNextBillingDate } from "@/util/get-next-billing-date";
@@ -40,7 +41,10 @@ export function ActiveSubscriptionItem({
 
       {/* サービス情報 */}
       <VStack alignment="leading" spacing={2}>
-        <Text modifiers={[font({ size: 15, weight: "medium" }), lineLimit(1)]}>
+        <Text
+          modifiers={[font({ size: 15, weight: "medium" }), lineLimit(1)]}
+          type="swift"
+        >
           {subscription.name}
         </Text>
         <Text
@@ -48,6 +52,7 @@ export function ActiveSubscriptionItem({
             font({ size: 14 }),
             foregroundStyle({ type: "color", color: "#9A9A9A" }),
           ]}
+          type="swift"
         >
           {formatBillingUnit(subscription.billingUnit)}
         </Text>
@@ -56,6 +61,7 @@ export function ActiveSubscriptionItem({
             font({ size: 14 }),
             foregroundStyle({ type: "color", color: "#9A9A9A" }),
           ]}
+          type="swift"
         >
           {nextBillingDate}
         </Text>
@@ -64,7 +70,7 @@ export function ActiveSubscriptionItem({
       <Spacer />
       {/* 金額 */}
       <HStack spacing={8}>
-        <Text modifiers={[font({ size: 15, weight: "medium" })]}>
+        <Text modifiers={[font({ size: 15, weight: "medium" })]} type="swift">
           {formatCurrency(subscription.amountMinor, subscription.currency)}
         </Text>
         <Image color="#9A9A9A" size={18} systemName="chevron.right" />

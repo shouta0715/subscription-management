@@ -1,4 +1,4 @@
-import { HStack, VStack, Spacer, Image, Text } from "@expo/ui/swift-ui";
+import { HStack, VStack, Spacer, Image } from "@expo/ui/swift-ui";
 import {
   frame,
   background,
@@ -9,6 +9,7 @@ import {
 } from "@expo/ui/swift-ui/modifiers";
 import { CanceledSubscription } from "@package/model/subscriptions";
 
+import { Text } from "@/components/native/text";
 import { formatDateFull, parseDate } from "@/util/format-date-japanese";
 
 type CanceledSubscriptionItemProps = {
@@ -36,7 +37,10 @@ export function CanceledSubscriptionItem({
 
       {/* サービス情報 */}
       <VStack alignment="leading" spacing={2}>
-        <Text modifiers={[font({ size: 15, weight: "medium" }), lineLimit(1)]}>
+        <Text
+          modifiers={[font({ size: 15, weight: "medium" }), lineLimit(1)]}
+          type="swift"
+        >
           {subscription.name}
         </Text>
         {isCanceled ? (
@@ -45,6 +49,7 @@ export function CanceledSubscriptionItem({
               font({ size: 14 }),
               foregroundStyle({ type: "color", color: "#8B4049" }),
             ]}
+            type="swift"
           >
             キャンセル済み：{formatDateFull(subscription.canceledDate)}
           </Text>
@@ -54,6 +59,7 @@ export function CanceledSubscriptionItem({
               font({ size: 14 }),
               foregroundStyle({ type: "color", color: "#9A9A9A" }),
             ]}
+            type="swift"
           >
             終了日：{formatDateFull(subscription.billingEndDate)}
           </Text>

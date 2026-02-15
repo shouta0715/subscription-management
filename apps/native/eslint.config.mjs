@@ -11,7 +11,12 @@ export default defineConfig(...eslintConfig, {
           {
             name: "react-native",
             importNames: ["Text"],
-            message: "Please import from `@/components/native` instead.",
+            message: "Please import from `@/components/native/text` instead.",
+          },
+          {
+            name: "@expo/ui/swift-ui",
+            importNames: ["Text"],
+            message: "Please import from `@/components/native/text` instead.",
           },
           {
             name: "react-native-safe-area-context",

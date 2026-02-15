@@ -39,17 +39,6 @@
           }
         }
       ],
-      [
-        "expo-font",
-        {
-          "fonts": [
-            "./assets/fonts/NotoSansJP-Regular.ttf",
-            "./assets/fonts/NotoSansJP-SemiBold.ttf",
-            "./assets/fonts/Inter-Regular.ttf",
-            "./assets/fonts/Inter-SemiBold.ttf"
-          ]
-        }
-      ],
       "expo-web-browser",
       "expo-secure-store",
       "expo-asset",

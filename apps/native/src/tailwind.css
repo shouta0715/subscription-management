@@ -1,12 +1,2 @@
 @import "tailwindcss";
 @import "uniwind";
-
-@theme {
-  --font-*: initial;
-  --font-noto-normal: "NotoSansJP-Regular";
-  --font-noto-semibold: "NotoSansJP-SemiBold";
-  --font-inter-normal: "Inter-Regular";
-  --font-inter-semibold: "Inter-SemiBold";
-
-  --font-weight-*: initial;
-}

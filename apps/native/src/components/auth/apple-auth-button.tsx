@@ -1,7 +1,8 @@
-import { Button, HStack, Text, VStack } from "@expo/ui/swift-ui";
-import { labelStyle, frame } from "@expo/ui/swift-ui/modifiers";
+import { Button, HStack, VStack } from "@expo/ui/swift-ui";
+import { frame, labelStyle } from "@expo/ui/swift-ui/modifiers";
 import { AppleIcon } from "../icon/apple";
 import { OAuthButtonProps } from "./types";
+import { Text } from "@/components/native/text";
 
 export const AppleAuthButton = ({
   onPress,
@@ -12,7 +13,7 @@ export const AppleAuthButton = ({
       <VStack modifiers={[frame({ width: 20, height: 20 })]}>
         <AppleIcon aria-label="Apple" />
       </VStack>
-      <Text>{label}</Text>
+      <Text type="swift">{label}</Text>
     </HStack>
   </Button>
 );
