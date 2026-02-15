@@ -4,8 +4,8 @@
     {
       "type": "frame",
       "id": "IVtdK",
-      "x": 0,
-      "y": 0,
+      "x": -300,
+      "y": -671,
       "name": "Colors Preview",
       "width": 1720,
       "fill": "#D3D3D6",
@@ -664,7 +664,7 @@
           "theme": {
             "mode": "Dark"
           },
-          "width": 1720,
+          "width": 1693,
           "fill": "#cbcbcbff",
           "layout": "vertical",
           "gap": 28,
@@ -2294,6 +2294,30 @@
           ]
         }
       ]
+    },
+    {
+      "type": "frame",
+      "id": "j20TZ",
+      "x": -300,
+      "y": -1808,
+      "name": "components",
+      "clip": true,
+      "width": 1720,
+      "height": 1004,
+      "fill": "#FFFFFF",
+      "layout": "none"
+    },
+    {
+      "type": "frame",
+      "id": "y5LDy",
+      "x": 1582,
+      "y": -1808,
+      "name": "pages",
+      "clip": true,
+      "width": 1720,
+      "height": 1004,
+      "fill": "#FFFFFF",
+      "layout": "none"
     }
   ],
   "themes": {

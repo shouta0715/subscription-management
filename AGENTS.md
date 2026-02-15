@@ -137,16 +137,29 @@ The app uses route guards in `_layout.tsx` to control navigation:
 3. Authenticated users with completed onboarding see `(authenticated)` routes
 
 **Styling:**
+
 - Uses Uniwind (Tailwind CSS for React Native) for all styling
 - Apply Tailwind utility classes via the `className` prop
 - Follow mobile-first responsive design patterns
 - Use Tailwind's built-in utilities for spacing, colors, typography, etc.
 - Refer to Uniwind documentation for available utilities and component styling
 
+**Theme and colors:**
+
+- **定義:** テーマ色は `apps/native/src/tailwind.css` の `@theme` / `@layer theme` で定義し、light/dark で切り替わる。
+- **セマンティックな色の種類:**
+  - **Backgrounds:** `background-primary`, `background-secondary`, `background-tertiary`, `background-grouped-*` … 画面・カードの背景
+  - **Labels（テキスト）:** `label-primary`（メイン）, `label-secondary`, `label-tertiary`, `label-quaternary` … 本文・補足
+  - **Fills:** `fill-primary` ～ `fill-quaternary` … オーバーレイ・塗り
+  - **Separators:** `separator-opaque`, `separator-non-opaque` … 区切り線
+  - **Accents:** `red`, `orange`, `blue`, `green`, `mint`, `teal`, `cyan`, `indigo`, `purple`, `pink`, `brown`, `yellow`
+  - **Grays:** `black`, `white`, `gray`, `gray-2` ～ `gray-6`（固定またはスキーム別）
+- **Tailwind（Uniwind）で使う:** `className` で `bg-background-primary`, `text-label-primary`, `text-label-secondary` など。ユーティリティ名は変数名と対応（例: `--color-label-primary` → `text-label-primary`）。
+- **Expo UI で使う:** CSS が使えないため `useThemeColor` を使う。`@/lib/theme` の `useThemeColor(name)` または `useThemeColor([name1, name2])`（複数は1回の購読で効率的）。名前は `--color-` の suffix のみ（例: `"label-primary"`, `"background-secondary"`）。`THEME_COLORS` 定数と `ThemeColor` 型で利用可能な名前を参照できる。
+
 **Coding guidelines:**
 
 - **Pattern matching:** Use `ts-pattern` for conditional logic that returns values
-
   - Prefer `match().with().exhaustive()` over `if/else` statements when returning JSX or values
   - Use `.exhaustive()` for type-safe exhaustive checks
   - Example:
@@ -255,6 +268,7 @@ Shared utility functions:
 **ブランチ作成とコミットのワークフロー:**
 
 1. **developブランチから機能ブランチを作成**
+
    ```bash
    git checkout develop
    git pull origin develop
@@ -340,7 +354,7 @@ Shared utility functions:
 
 **Design files:**
 
-- `design/` - Pencil design files (.pen format)
+- `apps/native/design/` - Pencil design files (.pen format)
 
 **Catalog dependencies:**
 The repository uses pnpm workspace catalog feature to manage shared dependency versions. See `pnpm-workspace.yaml` for catalog definitions.
