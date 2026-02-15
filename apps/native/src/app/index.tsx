@@ -2,8 +2,8 @@ import { Button, VStack } from "@expo/ui/swift-ui";
 import { isNullish } from "@package/lib/guard";
 import { Link, Redirect } from "expo-router";
 import React from "react";
+import { PageContainer } from "@/components/container/page-container";
 import { Host } from "@/components/native/host";
-import { SafeAreaView } from "@/components/native/safe-area-view";
 import { useSession } from "@/lib/auth-client";
 
 function Page() {
@@ -15,7 +15,7 @@ function Page() {
   }
 
   return (
-    <SafeAreaView className="flex-1">
+    <PageContainer className="pt-safe flex-1">
       <Host className="flex-1">
         <VStack spacing={4}>
           <Link asChild href="/sign-up">
@@ -27,7 +27,7 @@ function Page() {
           </Link>
         </VStack>
       </Host>
-    </SafeAreaView>
+    </PageContainer>
   );
 }
 

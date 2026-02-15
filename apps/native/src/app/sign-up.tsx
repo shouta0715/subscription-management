@@ -1,6 +1,6 @@
 import { isNullish } from "@package/lib/guard";
 import { Redirect } from "expo-router";
-import { View } from "react-native";
+import { PageContainer } from "@/components/container/page-container";
 import { SignUp } from "@/features/auth/components/sing-up";
 import { useSession } from "@/lib/auth-client";
 import { isAnonymousUser } from "@/util/is-anonymous-user";
@@ -14,9 +14,9 @@ function Page() {
   }
 
   return (
-    <View className="flex-1">
+    <PageContainer className="flex-1">
       <SignUp />
-    </View>
+    </PageContainer>
   );
 }
 

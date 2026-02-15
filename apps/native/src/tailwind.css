@@ -1,2 +1,111 @@
 @import "tailwindcss";
 @import "uniwind";
+
+/* ==========================================================================
+   Theme: iOS-style semantic colors (light/dark)
+   ========================================================================== */
+
+@theme {
+  /* 固定値（スキームに依存しない） */
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-gray: #8e8e93;
+}
+
+@layer theme {
+  :root {
+    @variant light {
+      /* Accents */
+      --color-red: #ff383c;
+      --color-orange: #ff8d28;
+      --color-yellow: #ffcc00;
+      --color-green: #34c759;
+      --color-mint: #00c8b3;
+      --color-teal: #00c3d0;
+      --color-cyan: #00c0e8;
+      --color-blue: #0088ff;
+      --color-indigo: #6155f5;
+      --color-purple: #cb30e0;
+      --color-pink: #ff2d55;
+      --color-brown: #ac7f5e;
+
+      /* Backgrounds */
+      --color-background-primary: #ffffff;
+      --color-background-secondary: #f2f2f7;
+      --color-background-tertiary: #ffffff;
+      --color-background-grouped-primary: #f2f2f7;
+      --color-background-grouped-secondary: #ffffff;
+      --color-background-grouped-tertiary: #f2f2f7;
+
+      /* Fills */
+      --color-fill-primary: #78787833;
+      --color-fill-secondary: #78788029;
+      --color-fill-tertiary: #7676801f;
+      --color-fill-quaternary: #74748014;
+
+      /* Grays (dynamic only) */
+      --color-gray-2: #aeaeb2;
+      --color-gray-3: #c7c7cc;
+      --color-gray-4: #d1d1d6;
+      --color-gray-5: #e5e5ea;
+      --color-gray-6: #f2f2f7;
+
+      /* Labels */
+      --color-label-primary: #000000;
+      --color-label-secondary: #3c3c4399;
+      --color-label-tertiary: #3c3c434d;
+      --color-label-quaternary: #3c3c432e;
+
+      /* Separators */
+      --color-separator-opaque: #c6c6c8;
+      --color-separator-non-opaque: #0000001f;
+    }
+
+    @variant dark {
+      /* Accents */
+      --color-red: #ff4245;
+      --color-orange: #ff9230;
+      --color-yellow: #ffd600;
+      --color-green: #30d158;
+      --color-mint: #00dac3;
+      --color-teal: #00d2e0;
+      --color-cyan: #3cd3fe;
+      --color-blue: #0091ff;
+      --color-indigo: #6d7cff;
+      --color-purple: #db34f2;
+      --color-pink: #ff375f;
+      --color-brown: #b78a66;
+
+      /* Backgrounds */
+      --color-background-primary: #000000;
+      --color-background-secondary: #1c1c1e;
+      --color-background-tertiary: #2c2c2e;
+      --color-background-grouped-primary: #000000;
+      --color-background-grouped-secondary: #1c1c1e;
+      --color-background-grouped-tertiary: #2c2c2e;
+
+      /* Fills */
+      --color-fill-primary: #7878805c;
+      --color-fill-secondary: #78788052;
+      --color-fill-tertiary: #7676803d;
+      --color-fill-quaternary: #7676802e;
+
+      /* Grays (dynamic only) */
+      --color-gray-2: #636366;
+      --color-gray-3: #48484a;
+      --color-gray-4: #3a3a3c;
+      --color-gray-5: #2c2c2e;
+      --color-gray-6: #1c1c1e;
+
+      /* Labels */
+      --color-label-primary: #ffffff;
+      --color-label-secondary: #ebebf5b3;
+      --color-label-tertiary: #ebebf54d;
+      --color-label-quaternary: #ebebf529;
+
+      /* Separators */
+      --color-separator-opaque: #38383a;
+      --color-separator-non-opaque: #ffffff2b;
+    }
+  }
+}

@@ -1,10 +1,10 @@
-import { View } from "react-native";
+import { PageContainer } from "@/components/container/page-container";
 import { Text } from "@/components/native/text";
 
 export default function Setting() {
   return (
-    <View>
+    <PageContainer>
       <Text>Setting</Text>
-    </View>
+    </PageContainer>
   );
 }
