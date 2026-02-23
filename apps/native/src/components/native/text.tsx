@@ -8,7 +8,7 @@ import { ComponentProps, FC } from "react";
 import { Text as ReactText } from "react-native";
 import { cn } from "tailwind-variants";
 import { modifiersPropsToModifiers } from "../modifiers/modifiers-props-to-modifiers";
-import { useThemeColor } from "@/lib/theme";
+import { ThemeColor, useThemeColor } from "@/lib/theme";
 
 type ReactTextProps = { type?: "react" } & ComponentProps<typeof ReactText>;
 
@@ -17,6 +17,7 @@ type FontModifierSize = Parameters<typeof fontModifier>[0]["size"];
 type SwiftTextProps = {
   type: "swift";
   size?: FontModifierSize;
+  color?: ThemeColor;
 } & ComponentProps<typeof SwiftText>;
 
 type CommonProps = {
@@ -27,12 +28,12 @@ type Props = (ReactTextProps | SwiftTextProps) & CommonProps;
 
 const SwiftThemeText: FC<Extract<Props, { type: "swift" }>> = (props) => {
   const { size, modifiers, bold, ...rest } = props;
-  const labelPrimary = useThemeColor("label-primary");
+  const labelColor = useThemeColor(props.color ?? "label-primary");
 
   return (
     <SwiftText
       modifiers={[
-        foregroundStyle({ type: "color", color: labelPrimary }),
+        foregroundStyle({ type: "color", color: labelColor }),
         ...(size || bold
           ? [fontModifier({ size, weight: bold ? "bold" : undefined })]
           : []),

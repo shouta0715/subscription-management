@@ -17,7 +17,9 @@ export function SubscriptionSortMenu() {
           ]}
         >
           <HStack spacing={2}>
-            <Text type="swift">並び替え</Text>
+            <Text color="blue" type="swift">
+              並び替え
+            </Text>
             <Image size={14} systemName="arrow.up.arrow.down" />
           </HStack>
         </Button>
