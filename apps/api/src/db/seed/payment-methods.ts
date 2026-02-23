@@ -35,7 +35,7 @@ const generatePaymentMethods = (user: User, cards: Card[]): PaymentMethod[] => {
     } satisfies CardPaymentMethod),
   );
 
-  const addOtherCount = Math.floor(Math.random() * 4);
+  const addOtherCount = Math.floor(Math.random() * 2);
   const otherMethods = Array.from({ length: addOtherCount }, (_, i) =>
     parseSchema(paymentMethodSchema, {
       id: parseSchema(paymentMethodIdSchema, crypto.randomUUID()),
